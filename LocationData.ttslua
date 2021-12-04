@@ -28,6 +28,11 @@ local locationData = {
         p2 = { x = 9.370266, y = 10.741003, z = -1.179713 },
         board = "Showdown Board",
     },
+    ["Patterns"] = {
+        center = { x = 9.015150, y = 10.741002, z = -2.020570 },
+        size = CARD_SIZE,
+        board = "Showdown Board",
+    },
     ["Abilities"] = {
         center = { x = 9.015150, y = 10.741002, z = -0.620570 },
         size = CARD_SIZE,
@@ -532,6 +537,11 @@ local locationData = {
     ["Principle: New Life"] = {
         center = { x = 1.307268, y = 0.595169, z = -7.423294 },
         size = CARD_SIZE,
+        board = "Settlement Board",
+    },
+    ["Bookmark Archive"] = {
+        center = { x = 0, y = 0.595169, z = -7.673294 },
+        size = SETTLEMENT_EVENT_SIZE,
         board = "Settlement Board",
     },
     ["Principle: Society"] = {

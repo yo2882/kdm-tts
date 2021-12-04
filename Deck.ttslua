@@ -25,6 +25,7 @@ function Deck.Init()
     local ui = Ui.Create3d("Deck", NamedObject.Get("Showdown Board"), 10.74)
 
     local deckGrid = {
+        { "Patterns" },
         { "Abilities", "Fighting Arts", "Secret Fighting Arts" },
         { "Disorders", "Severe Injuries", "Tactics" },
         { "Weapon Proficiencies", "Armor Sets", "Vermin" },
@@ -43,7 +44,7 @@ function Deck.Init()
     for row, decks in ipairs(deckGrid) do
         for col, deck in ipairs(decks) do
             local x = x1 + (col - 1) * dx
-            local y = y1 + (row - 1) * dy
+            local y = y1 + (row - 2) * dy
             ui:Button({ id = deck, topLeft = { x = x, y = y }, bottomRight = { x = x + width, y = y + height }, onClick = function()
                 Deck.ResetDeck(deck)
             end })

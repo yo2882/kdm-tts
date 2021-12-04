@@ -42,6 +42,7 @@ Archive.data = {
     { "Ezra", "Player Figurine", "Ezra Archive" },
     { "Lucy", "Player Figurine", "Lucy Archive" },
     { "Zachary", "Player Figurine", "Zachary Archive" },
+    { "Patterns", "Patterns", "Patterns Archive"},
 }
 
 ---------------------------------------------------------------------------------------------------

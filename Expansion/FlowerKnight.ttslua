@@ -9,6 +9,7 @@ return {
         ["Terrain"] = "Flower Patches",
         ["Terrain Tiles"] = { "Flower Patch" },
         ["Rare Gear"] = "Flower Knight Rare Gear",
+        ["Patterns"] = "Flower Knight Patterns",
     },
 
     timelineEvents = {
@@ -46,6 +47,7 @@ return {
             { "Flower Knight Disorders", "Disorders" },
             { "Flower Knight Tactics", "Tactics" },
             { "Flower Knight Resources", "Monster Resources" },
+            { "Flower Knight Patterns", "Patterns" },
 
             { "Flower Patches", "Terrain" },
             { "Flower Patch", "Terrain Tiles" },
