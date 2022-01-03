@@ -165,7 +165,7 @@ return {
                         basic  = 7,
                         advanced = 3,
                         starting = {
-                            special = { "Baller", "Power Forward", "Separation Anxiety", "Ground Pound" },
+                            special = { "Baller", "Power Forward", "Separation Anxiety", "Prepared Tunnels" },
                         },
                         movement = 7,
                         toughness = 12,
@@ -180,7 +180,7 @@ return {
                         advanced = 6,
                         legendary = 1,
                         starting = {
-                            special = { "Baller", "Power Forward", "Separation Anxiety", "Ground Pound", "Heavy Load" },
+                            special = { "Baller", "Power Forward", "Separation Anxiety", "Prepared Tunnels", "Heavy Load" },
                         },
                         movement = 7,
                         toughness = 14,
@@ -197,7 +197,7 @@ return {
                         advanced = 9,
                         legendary = 2,
                         starting = {
-                            special = { "Baller", "Power Forward", "Separation Anxiety", "Ground Pound", "Burrow" },
+                            special = { "Baller", "Power Forward", "Separation Anxiety", "Prepared Tunnels", "Burrow" },
                         },
                         movement = 8,
                         toughness = 18,
@@ -216,7 +216,7 @@ return {
                         customAdvanced = { "Resin Sword Slash" },
                         starting = {
                             legendary = { "Sword Master" },
-                            special = { "Baller", "Power Forward", "Separation Anxiety", "Ground Pound" },
+                            special = { "Baller", "Power Forward", "Separation Anxiety", "Prepared Tunnels" },
                             misc = { "Berserker" },
                         },
                         life = 25,

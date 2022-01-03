@@ -32,7 +32,7 @@ local Expansion = {}
 function Expansion.Init(saveState)
     Expansion.allExpansions = {
         Core,
-        CommunityEdition,
+        --CommunityEdition,
         DragonKing,
         DungBeetleKnight,
         FlowerKnight,

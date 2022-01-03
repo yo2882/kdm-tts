@@ -19,6 +19,8 @@ return {
         ["Settlement Locations"] = "Core Settlement Locations",
         ["Rare Gear"] = "Core Rare Gear",
         ["Hunt Events"] = "Core Hunt Events",
+
+        ["Patterns"] = "Core Patterns",
     },
 
     settlementEvents = {
@@ -43,6 +45,8 @@ return {
         "Clinging Mist",
         "Lights in the Sky",
         "Stranger in the Dark",
+        "Story in the Snow",  --1.6
+        "Dark Seamstress",    --1.6
     },
 
     campaigns = {
@@ -269,15 +273,24 @@ return {
 
         ["Cloth"] = { head = 0, arms = 0, body = 0, waist = 1, legs = 0 },
 
-        ["Screaming Armor"]       = { head = 2, arms = 2, body = 2, waist = 2, legs = 2, modifier = true },
-        ["Screaming Horns"]       = { head = 3, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Screaming Armor"]       = { head = 1, arms = 1, body = 1, waist = 1, legs = 1, modifier = true },
+        ["Screaming Horns"]       = { head = 2, arms = 0, body = 0, waist = 0, legs = 0 },
         ["Screaming Bracers"]     = { head = 0, arms = 2, body = 0, waist = 0, legs = 0 },
         ["Screaming Coat"]        = { head = 0, arms = 0, body = 2, waist = 0, legs = 0 },
-        ["Screaming Skirt"]       = { head = 0, arms = 0, body = 0, waist = 3, legs = 0 },
+        ["Screaming Skirt"]       = { head = 0, arms = 0, body = 0, waist = 2, legs = 0 },
         ["Screaming Leg Warmers"] = { head = 0, arms = 0, body = 0, waist = 0, legs = 2 },
 
         ["Crystal Skin"] = { head = 3, arms = 3, body = 3, waist = 3, legs = 3, modifier = true },
         ["Shield Proficiency"] = { head = 1, arms = 1, body = 1, waist = 1, legs = 1, modifier = true },
+
+        ["Teeth Bikini"] = { head = 0, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Leather Bodysuit"] = { head = 0, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Lantern Brassiere"] = { head = 0, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Rawhide Corset"] = { head = 0, arms = 0, body = 0, waist = 0, legs = 0 },
+
+        ["Brave Dirndl"] = { head = 0, arms = 0, body = 1, waist = 1, legs = 0 },
+
+        
     },
 
     weaponStats = {
@@ -325,8 +338,10 @@ return {
         ["Arc Bow"] = { speed = 1, accuracy = 6, strength = 9, slow = true },
         ["Feather Shield"] = { speed = 3, accuracy = 7, strength = 0 },
         ["Hollowpoint Arrow"] = { speed = 1, accuracy = 6, strength = 11, slow = true },
-        ["Hollow Sword"] = { speed = 3, accuracy = 5, strength = 3, paired = true },
-        ["Sonic Tomahawk"] = { speed = 3, accuracy = 5, strength = 2 },
+        ["Hollow Sword"] = { speed = 2, accuracy = 5, strength = 5 },
+        ["Sonic Tomahawk"] = { speed = 3, accuracy = 5, strength = 6 },
+        ["Finger of God"] = { speed = 2, accuracy = 5, strength = 5 },
+        ["Rainbow Katana"] = { speed = 4, accuracy = 4, strength = 4 },
 
         ["Arm of the First Tree"] = { speed = 2, accuracy = 6, strength = 4 },
         ["Aya's Sword"] = { speed = 2, accuracy = 7, strength = 3 },
@@ -349,6 +364,12 @@ return {
         ["Steel Sword"] = { speed = 1, accuracy = 4, strength = 5, sharp = true, slow = true },
         ["Thunder Maul"] = { speed = 2, accuracy = 6, strength = 10},
         ["Twilight Sword"] = { speed = 1, accuracy = 9, strength = 9 },
+        ["Brazen Bat"] = { speed = 2, accuracy = 5, strength = 6 },
+        ["Tempered Spear"] = { speed = 2, accuracy = 5, strength = 5 },
+        ["Durendal"] = { speed = 2, accuracy = 6, strength = 9 },
+        ["Tempered Axe"] = { speed = 2, accuracy = 6, strength = 6, paired = true },
+        ["Plated Shield"] = { speed = 1, accuracy = 8, strength = 3 },
+        ["Tempered Dagger"] = { speed = 3, accuracy = 7, strength = 4, paired = true },
 
         ["Rawhide Whip"] = { speed = 3, accuracy = 7, strength = 1 },
 
@@ -356,12 +377,12 @@ return {
         ["Lance of Longinus"] = { speed = 2, accuracy = 6, strength = 9 },
 
         ["Counterweighted Axe"] = { speed = 2, accuracy = 6, strength = 4 },
-        ["Finger of God"] = { speed = 2, accuracy = 5, strength = 5 },
-        ["Rainbow Katana"] = { speed = 4, accuracy = 4, strength = 4 },
         ["Scrap Dagger"] = { speed = 3, accuracy = 7, strength = 2 },
         ["Scrap Sword"] = { speed = 2, accuracy = 5, strength = 3 },
         ["Skullcap Hammer"] = { speed = 2, accuracy = 7, strength = 3 },
         ["Zanbato"] = { speed = 1, accuracy = 6, strength = 6, slow = true, deadly = 1 },
+        ["Scrap Bone Spear"] = { speed = 2, accuracy = 6, strength = 3 },
+
     },
 
     guidNames = { ["6392cb"] = "Core Archive" },
@@ -501,6 +522,8 @@ return {
             { "White Gigalion Info", "AI" },
             { "White Gigalion Basic Action", "AI" },
             { "White Gigalion Hit Locations", "Hit Locations" },
+
+            { "Core Patterns", "Patterns" },
         },
     },
 

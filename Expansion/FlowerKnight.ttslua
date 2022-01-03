@@ -31,7 +31,7 @@ return {
     weaponStats = {
         ["Replica Flower Sword"] = { speed = 2, accuracy = 6, strength = 6 },
         ["Vespertine Arrow"]     = { speed = 2, accuracy = 6, strength = 0, deadly = 4 },
-        ["Vespertine Bow"]       = { speed = 3, accuracy = 6, strength = 6, deadly = 1 },
+        ["Vespertine Bow"]       = { speed = 3, accuracy = 6, strength = 1, deadly = 1 },
         ["Vespertine Foil"]      = { speed = 4, accuracy = 5, strength = 1 },
     },
 
@@ -47,7 +47,6 @@ return {
             { "Flower Knight Disorders", "Disorders" },
             { "Flower Knight Tactics", "Tactics" },
             { "Flower Knight Resources", "Monster Resources" },
-            { "Flower Knight Patterns", "Patterns" },
 
             { "Flower Patches", "Terrain" },
             { "Flower Patch", "Terrain Tiles" },
@@ -68,6 +67,9 @@ return {
             { "Flower Knight Legendary AI", "AI" },
             { "Flower Knight Special AI", "AI" },
             { "Flower Knight Hit Locations", "Hit Locations" },
+            
+            { "Flower Knight Patterns", "Patterns" },
+
         },
     },
 

@@ -8,12 +8,14 @@ return {
         ["Armor Sets"] = "CCG Armor Sets",
         ["Settlement Locations"] = "CCG Settlement Locations",
         ["Vermin"] = "CCG Vermin",
-        ["Hunt Events"] = "Bug Collector",
+        ["Hunt Events"] = "CCG Hunt Events",
         ["Rare Gear"] = "CCG Rare Gear",
         ["Settlement Events"] = "CCG Settlement Events",
         ["Innovations"] = "Gore Farming",
         ["Strange Resources"] = "Gore Silk",
         ["Bookmarks"] = "Order of Things",
+
+        ["Secret Fighting Arts"] = "Black Guard Style",
     },
 
     settlementEvents = {
@@ -36,6 +38,12 @@ return {
         "The Unblemished Man",
         "The Potion Maker",
         "Strange Twins",
+        "Sedition of a Settlement",
+        "Curious Twilight Knight",
+        "Messenger of the First Story",
+        "Messenger of Courage",
+        "Messenger of the Spiral Path",
+        "Messenger of Humanity",
     },
 
     timelineEvents = {
@@ -100,12 +108,14 @@ return {
             { "CCG Abilities", "Abilities" },
             { "CCG Armor Sets", "Armor Sets" },
             { "CCG Vermin", "Vermin"},
-            { "Bug Collector", "Hunt Events" },
+            { "CCG Hunt Events", "Hunt Events" },
 
             { "CCG Settlement Events", "Settlement Events" },
             { "Gore Silk", "Strange Resources" },
             { "Gore Farming", "Innovations" },
             { "Order of Things", "Bookmarks" },
+
+            { "Black Guard Style", "Secret Fighting Arts" },
         }
     },
 
