@@ -219,7 +219,7 @@ function Hunt.Setup(monsterOrName, levelOrName)
 
     Hunt.settingUpHunt = false
 
-    Location.Get("Hunt Track"):LookAt({ distance = 30 })
+    --Location.Get("Hunt Track"):LookAt({ distance = 30 })
 end
 
 ---------------------------------------------------------------------------------------------------

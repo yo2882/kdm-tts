@@ -56,7 +56,7 @@ function MilestoneBoard.Event(stat, milestone)
     local event = milestoneEvents[milestone]
     assert(event, Util.SafeFormat("Unrecognized %s milestone # %d for campaign %s", stat, milestone, campaign.name))
     Rules.SpawnRules(event.rules, event.state)
-    Location.Get("Rules Board"):LookAt({ pitch = 90 })
+    --Location.Get("Rules Board"):LookAt({ pitch = 90 })
 end
 
 ---------------------------------------------------------------------------------------------------

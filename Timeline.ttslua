@@ -303,7 +303,7 @@ function Timeline.InitUi(ui)
             Timeline.HideUi()
             local rulebook, state = Rules.RulebookAndState(milestone.event)
             Rules.SpawnRules(rulebook, state)
-            Location.Get("Rules Board"):LookAt({ pitch = 90 })
+            --Location.Get("Rules Board"):LookAt({ pitch = 90 })
         end })
         milestone.eventText = panel:Text({ id = "MilestoneEvent"..i, x = 1447, y = buttonY, width = 108, height = 30, fontSize = 12, color = Ui.LIGHT_BROWN, active = false })
 
@@ -768,7 +768,7 @@ Timeline.eventHandlersByType = {
         Timeline.HideUi()
         rulebook, state = Rules.RulebookAndState(event.name)
         Rules.SpawnRules(rulebook, state)
-        Location.Get("Rules Board"):LookAt({ pitch = 90 })
+        --Location.Get("Rules Board"):LookAt({ pitch = 90 })
     end,
 
     ["ShowdownEvent"] = function(event)
@@ -826,7 +826,7 @@ Timeline.eventHandlersByType = {
             return
         end
 
-        Util.LookAt({ object = card, pitch = 75, distance = 10 })
+        --Util.LookAt({ object = card, pitch = 75, distance = 10 })
     end
 }
 

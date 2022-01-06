@@ -17,6 +17,7 @@ Deck.NEEDS_SHUFFLE = {
     ["Basic Resources"] = true,
     ["Monster Resources"] = true,
     ["Terrain"] = true,
+    ["Patterns"] = true,
 }
 
 ---------------------------------------------------------------------------------------------------

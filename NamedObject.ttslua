@@ -43,7 +43,7 @@ NamedObject.data = {
     ["740242"] = { name = "Overcharge Tokens" },
     ["97f88b"] = { name = "Endure Tokens" },
 
-    ["437cd7"] = { name = "Showdown Board", noninteractible = true },
+    ["437cd7"] = { name = "Showdown Board", noninteractible = true }, --(make false to change image)
     ["51a21e"] = { name = "Hunt Board", noninteractible = true },
     ["226d8a"] = { name = "Settlement Board", noninteractible = true },
     ["456dc5"] = { name = "Rules Board", noninteractible = true },

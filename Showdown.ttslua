@@ -575,7 +575,7 @@ function Showdown.Setup(monsterOrName, levelOrName)
     Showdown.settingUp = false
     Wait.frames(function() log:Printf("Showdown ready. Adjust your survivor/terrain placement and prepare for death.") end, 120)
 
-    Location.Get("(11.5, 8.5)"):LookAt({ distance = 90 })
+    --Location.Get("(11.5, 8.5)"):LookAt({ distance = 90 })
 
     EventManager.FireEvent(EventManager.ON_SHOWDOWN_STARTED)
 end

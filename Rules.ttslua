@@ -216,7 +216,7 @@ function Rules.SetSearchResults(results)
             Rules.searchInput:SetText(nil)
             Rules.SetSearchResults({})
             Rules.SpawnRules(result.rulebook, result.state)
-            Location.Get("Rules Board"):LookAt({ pitch = 90 })
+            --Location.Get("Rules Board"):LookAt({ pitch = 90 })
         end)
         button:SetText(result.name)
     end

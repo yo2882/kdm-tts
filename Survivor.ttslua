@@ -1132,14 +1132,14 @@ function Survivor.SpawnSurvivorBox(survivor, location)
     local survivorBox = Survivor.survivorBoxesBySurvivor[survivor]
     if survivorBox then
         Util.Highlight(survivorBox.object)
-        Util.LookAt({ object = survivorBox.object })
+        --Util.LookAt({ object = survivorBox.object })
         return
     end
 
     local survivorSheet = Survivor.survivorSheetsBySurvivor[survivor]
     if survivorSheet then
         Util.Highlight(survivorSheet.object)
-        Util.LookAt({ object = survivorSheet.object })
+        --Util.LookAt({ object = survivorSheet.object })
         return
     end
 
@@ -1147,7 +1147,7 @@ function Survivor.SpawnSurvivorBox(survivor, location)
     if #blocking > 0 then
         log:Broadcastf("Please move the highlighted objects out of the way and try again.")
         Util.HighlightAll(blocking)
-        location:LookAt()
+        --location:LookAt()
         return
     end
 
@@ -1189,7 +1189,7 @@ function Survivor.SpawnSurvivorBox(survivor, location)
                    Archive.Clean()
                end
 
-               Util.LookAt({ object = survivorBoxObject })
+               --Util.LookAt({ object = survivorBoxObject })
            end, 1)
        end,
     })

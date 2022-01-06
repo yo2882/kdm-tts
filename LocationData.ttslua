@@ -25,7 +25,7 @@ local locationData = {
 
     ["Deck Board"] = {
         p1 = { x = 6.607502, y = 10.741001, z = 4.154560 },
-        p2 = { x = 9.370266, y = 10.741003, z = -1.179713 },
+        p2 = { x = 9.370266, y = 10.741003, z = -2.04 },
         board = "Showdown Board",
     },
     ["Patterns"] = {
