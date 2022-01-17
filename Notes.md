@@ -1,3 +1,16 @@
+# How to compile
+Use luabundle (Current version 1.6), with the following batch file :
+```bat
+luabundler bundle Kdm\Global.ttslua ^
+-p "?.ttslua" ^
+-o bundle.lua
+```
+It requires the folder of the source files to be called Kdm, and the bundle.bat executable to be outside of it.  
+I then use a Json Escaper (this one works well : https://www.freeformatter.com/json-escape.html#ad-output) to get a single string of my bundle.lua file.  
+I then open the save I want to edit, and replace the LuaScript Json Entry with my String instead.
+
+That's it!
+
 # Colors:
 Light: #d3cdc3ff
 Mid:   #71624cff

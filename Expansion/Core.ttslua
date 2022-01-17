@@ -296,6 +296,8 @@ return {
         ["Big Bite Costume"] = { head = 1, arms = 1, body = 1, waist = 1, legs = 1 },
         ["Gold Cat Costume"] = { head = 1, arms = 1, body = 1, waist = 1, legs = 1 },
         ["Screaming Costume"] = { head = 1, arms = 1, body = 1, waist = 1, legs = 1 },
+
+        ["White Sunlion Mask"] = { head = 1, arms = 0, body = 0, waist = 0, legs = 0 },
     },
 
     weaponStats = {
