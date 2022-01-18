@@ -447,6 +447,7 @@ return {
             { "The Forest Gate", "Special Hunt Events" },
             { "Herb Gathering", "Special Hunt Events" },
             { "Mineral Gathering", "Special Hunt Events" },
+            { "Underground Labyrinth", "Special Hunt Events" },
 
             { "Misc AI", "AI" },
             { "Battle Pressure", "Hit Locations" },

@@ -22,6 +22,7 @@ local KingsCoin = require("Kdm/Expansion/KingsCoin")
 local DrifterKnight = require("Kdm/Expansion/DrifterKnight")
 local AllisonTheTwilightKnight = require("Kdm/Expansion/AllisonTheTwilightKnight")
 local TracksOfDeath = require("Kdm/Expansion/TracksOfDeath")
+local HarvesterWorm = require("Kdm/Expansion/HarvesterWorm")
 
 ---------------------------------------------------------------------------------------------------
 
@@ -51,6 +52,7 @@ function Expansion.Init(saveState)
         DrifterKnight,
         AllisonTheTwilightKnight,
         TracksOfDeath,
+        HarvesterWorm,
     }
 
     Expansion.expansionsByName = {}

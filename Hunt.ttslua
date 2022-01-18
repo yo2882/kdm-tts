@@ -193,6 +193,8 @@ function Hunt.Setup(monsterOrName, levelOrName)
             -- Overwhelming Darkness, no card
         elseif c == 'F' then
             Archive.Take({ name = "The Forest Gate", type = "Special Hunt Events", location = "Hunt Track "..i })
+        elseif c == 'L' then
+            Archive.Take({ name = "Underground Labyrinth", type = "Special Hunt Events", location = "Hunt Track "..i })
         else
             assert(Check.Fail("Unrecognized setup element %s at position %d in hunt setup %s %s", c, i, monster.name, level.name))
         end

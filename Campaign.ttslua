@@ -66,7 +66,7 @@ function Campaign.InitCampaignUi()
     panel:Image({ id = "Campaign", image = "Campaign", x = 0, y = 0, width = 885, height = 723 })
     panel:Button({ id = "Close", x = 845, y = -10, width = 30, height = 30, onClick = Campaign.HideUi })
     Campaign.selectedCampaign = Campaign.campaigns[1]
-    local x = 128
+    local x = 20 --128
     local y = -125
     Campaign.campaignOptionGroup = panel:OptionButtonGroup({ id = "Campaign", unselectedColors = Ui.MID_BROWN_COLORS, fontSize = 14, onClick = function(option)
         local campaign = option:OptionValue()
@@ -77,6 +77,10 @@ function Campaign.InitCampaignUi()
         local selected = (campaign == Campaign.selectedCampaign)
         Campaign.campaignOptionGroup:OptionButton({ x = x, y = y, width = 200, height = 30, text = campaign.name, selected = selected, optionValue = campaign })
         x = x + 200 + 15
+        if x > 665 then
+            x = 20
+            y = y - 30 - 15
+        end
     end
     Campaign.selectedExpansionsNyName = {}
     local x = 20

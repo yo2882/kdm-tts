@@ -13,7 +13,7 @@ return {
         ["Settlement Events"] = "CCG Settlement Events",
         ["Innovations"] = "Gore Farming",
         ["Strange Resources"] = "Gore Silk",
-        ["Bookmarks"] = "Order of Things",
+        ["Bookmarks"] = "CCG Bookmarks",
 
         ["Secret Fighting Arts"] = "Black Guard Style",
     },
@@ -44,6 +44,8 @@ return {
         "Messenger of Courage",
         "Messenger of the Spiral Path",
         "Messenger of Humanity",
+        "Sword Hunter", --Gets added to archive after "Sword in the Stone" hunt event manually
+        "A Strange Spot",
     },
 
     timelineEvents = {
@@ -113,7 +115,7 @@ return {
             { "CCG Settlement Events", "Settlement Events" },
             { "Gore Silk", "Strange Resources" },
             { "Gore Farming", "Innovations" },
-            { "Order of Things", "Bookmarks" },
+            { "CCG Bookmarks", "Bookmarks" },
 
             { "Black Guard Style", "Secret Fighting Arts" },
         }

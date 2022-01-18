@@ -1,4 +1,4 @@
-KDM_VERSION = "1.2"
+KDM_VERSION = "1.3.7"
 
 GLOBAL_OBJECT = self
 
@@ -55,7 +55,8 @@ function onLoad(saveJson)
     Expansion.Init(saveState.Expansion or {})
     --
     Log.Init(e)
-    log:Printf("Misterslack's Kingdom Death: Monster Mod v%s", KDM_VERSION)
+    log:Printf("Meï's Kingdom Death: Monster Mod v%s", KDM_VERSION)
+    log:Printf("This mod is a fork of Misterslack's and Farbod's mods. Check'em out!")
     --
     Armor.Init(e)
     NamedObject.Init(e)

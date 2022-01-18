@@ -357,6 +357,13 @@ function Showdown.Setup(monsterOrName, levelOrName)
         end
     end
 
+    if showdownSetup.survivorStatus2 then
+        for i = 1, 4 do
+            log:Debugf("Spawning survivor %d status %s", i, showdownSetup.survivorStatus2[i])
+            specialAiDeck:Take({ name = showdownSetup.survivorStatus2[i], type = "AI", location = "Player "..i.." Status" })
+        end
+    end
+
     -- build AI deck
     local sources = {}
     for _, card in ipairs(showdownSetup.customBasic or {}) do
@@ -370,6 +377,9 @@ function Showdown.Setup(monsterOrName, levelOrName)
     end
     for _, card in ipairs(showdownSetup.customSpecial or {}) do
         table.insert(sources, Archive.ContainerSource(specialAiDeck, card, "AI" ))
+    end
+    for _, card in ipairs(showdownSetup.miscAI or {}) do
+        table.insert(sources, Archive.ContainerSource(miscAiDeck, card, "AI" ))
     end
     for i = 1, (showdownSetup.basic or 0) do
         table.insert(sources, Archive.ContainerSource(basicAiDeck))
