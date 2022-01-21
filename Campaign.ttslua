@@ -26,6 +26,10 @@ Campaign.EXPORT_VERSION = 2
 function Campaign.Init(saveState)
     Campaign.InitExpansions()
     Campaign.campaign = Campaign.campaignsByName[saveState.campaign] or Campaign.campaignsByName["People of the Lantern"]
+    Campaign.unlockedMode = saveState.unlockedMode
+    if Campaign.unlockedMode == nil then 
+        Campaign.unlockedMode = false
+    end
     assert(Campaign.campaign)
     Campaign.InitCampaignUi()
     Campaign.InitExportImportBoardUi()
@@ -66,6 +70,14 @@ function Campaign.InitCampaignUi()
     panel:Image({ id = "Campaign", image = "Campaign", x = 0, y = 0, width = 885, height = 723 })
     panel:Button({ id = "Close", x = 845, y = -10, width = 30, height = 30, onClick = Campaign.HideUi })
     Campaign.selectedCampaign = Campaign.campaigns[1]
+    local x = 20
+    local y = -30
+    Campaign.unlockedButton = panel:CheckButton({ id = "Unlocked", x = x, y = y, width = 130, height = 30, text = "Unlocked Mode", fontSize = 14, onClick = function()
+        local checked = not Campaign.unlockedMode
+        log:Debugf("Unlocked Mode %s", checked and "Activated" or "Disabled")
+        Campaign.unlockedMode = checked
+        Campaign.unlockedButton:Check(checked)
+    end })
     local x = 20 --128
     local y = -125
     Campaign.campaignOptionGroup = panel:OptionButtonGroup({ id = "Campaign", unselectedColors = Ui.MID_BROWN_COLORS, fontSize = 14, onClick = function(option)
@@ -120,7 +132,8 @@ end
 
 function Campaign.Save()
     return {
-        campaign = Campaign.campaign.name
+        campaign = Campaign.campaign.name,
+        unlockedMode = Campaign.unlockedMode
     }
 end
 
@@ -211,6 +224,7 @@ function Campaign.ExportToOrb()
         version = Campaign.EXPORT_VERSION,
         expansions = expansions,
         campaign = Campaign.campaign.name,
+        unlockedMode = Campaign.unlockedMode,
         objectsByLocation = objectsByLocation,
         timeline = Timeline.Export(),
         survivor = Survivor.Export(),
@@ -327,9 +341,11 @@ end
 function Campaign.ImportFromCampaign()
     local campaign = Campaign.selectedCampaign
     local requiredExpansion = Campaign.expansionsByCampaignName[campaign.name]
-    if requiredExpansion.name != "Core" and not Campaign.selectedExpansionsNyName[requiredExpansion.name] then
-        log:Broadcastf("%s requires %s expansion", campaign.name, requiredExpansion.name)
-        return
+    if Campaign.unlockedMode != true then
+        if requiredExpansion.name != "Core" and not Campaign.selectedExpansionsNyName[requiredExpansion.name] then
+            log:Broadcastf("%s requires %s expansion", campaign.name, requiredExpansion.name)
+            return
+        end
     end
 
     Campaign.HideUi()
@@ -356,6 +372,7 @@ function Campaign.ImportFromCampaign()
         version = Campaign.EXPORT_VERSION,
         campaign = campaign,
         expansions = expansions,
+        unlockedMode = Campaign.unlockedMode,
         objectsByLocation = objectsByLocation,
         remove = campaign.remove,
         references = campaign.references,
@@ -467,6 +484,7 @@ function Campaign.Import(data)
     Showdown:Clean()
     Hunt:Clean()
     Campaign.Clean()
+    log:Printf("Cleaned up Campaign")
     Archive.Clean()
 
     local enabledByExpansionName = {}
@@ -474,6 +492,9 @@ function Campaign.Import(data)
         enabledByExpansionName[expansion.name] = true
     end
     Expansion.SetEnabled(enabledByExpansionName)
+    log:Printf("Setting Unlocked Mode in Campaign.Import()")
+    Expansion.SetUnlockedMode(data.unlockedMode)
+    log:Printf("Setting Unlocked Mode in Campaign.Import() done")
 
     Campaign.SetupArchiveOverrides(data.expansions)
 
@@ -730,7 +751,7 @@ function Campaign.Spawn(name, type, position, context)
     local object = context.cache[key]
     if not object then
         if type == "Innovations" then
-             object = context.innovationArchive:Take({ name = name, type = type, position = position })
+            object = context.innovationArchive:Take({ name = name, type = type, position = position })
         elseif type == "Settlement Locations" then
             object = context.settlementLocationDeck:Take({ name = name, type = type, position = position })
         else

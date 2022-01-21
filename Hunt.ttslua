@@ -88,9 +88,12 @@ function Hunt.Init()
             return
         end
 
-        local expansion = Hunt.expansionsByMonsterName[Hunt.monster.name]
-        if not Expansion.IsEnabled(expansion.name) then
-            return log:Broadcastf("Requires %s expansion.", expansion.name)
+        log:Printf("Checking if isUnlockedMode")
+        if Expansion.IsUnlockedMode() != true then
+            local expansion = Hunt.expansionsByMonsterName[Hunt.monster.name]
+            if not Expansion.IsEnabled(expansion.name) then
+                return log:Broadcastf("Requires %s expansion.", expansion.name)
+            end
         end
 
 

@@ -110,9 +110,12 @@ function Showdown.InitUi()
             return log:Broadcastf("Please select a monster and level")
         end
 
-        local expansion = Showdown.expansionsByMonsterName[Showdown.monster.name]
-        if not Expansion.IsEnabled(expansion.name) then
-            return log:Broadcastf("Requires %s expansion.", expansion.name)
+        log:Printf("Checking if isUnlockedMode")
+        if Expansion.IsUnlockedMode() != true then
+            local expansion = Showdown.expansionsByMonsterName[Showdown.monster.name]
+            if not Expansion.IsEnabled(expansion.name) then
+                return log:Broadcastf("Requires %s expansion.", expansion.name)
+            end
         end
 
         log:Debugf("Begin showdown clicked for monster %s, level %s", Showdown.monster.name, Showdown.level.name)

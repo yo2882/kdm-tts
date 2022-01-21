@@ -45,7 +45,7 @@ function Expansion.Init(saveState)
         Slenderman,
         Spidicules,
         Sunstalker,
-        CcgHomebrew,
+        --CcgHomebrew,
         ForsakerSisters,
         StormKnight,
         KingsCoin,
@@ -59,6 +59,8 @@ function Expansion.Init(saveState)
     for _, expansion in ipairs(Expansion.allExpansions) do
         Expansion.expansionsByName[expansion.name] = expansion
     end
+
+    Expansion.unlockedMode = false
 
     Expansion.enabledByExpansionName = {}
     for _, name in ipairs(saveState or {}) do
@@ -110,10 +112,24 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Expansion.SetUnlockedMode(unlockedMode)
+    Expansion.unlockedMode = unlockedMode
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Expansion.IsUnlockedMode()
+    return Expansion.unlockedMode
+end
+
+---------------------------------------------------------------------------------------------------
+
 return {
     Init = Expansion.Init,
     Save = Expansion.Save,
     All = Expansion.All,
     SetEnabled = Expansion.SetEnabled,
     IsEnabled = Expansion.IsEnabled,
+    SetUnlockedMode = Expansion.SetUnlockedMode,
+    IsUnlockedMode = Expansion.IsUnlockedMode,
 }
