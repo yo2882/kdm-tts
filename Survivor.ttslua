@@ -193,6 +193,8 @@ function Survivor.InitSaveState(saveState)
     Survivor.hideBlueSquare = saveState.hideBlueSquare
     Survivor.hideRedCircle = saveState.hideRedCircle
     Survivor.hidePurpleDiamond = saveState.hidePurpleDiamond
+    Survivor.hideFemales = saveState.hideFemales
+    Survivor.hideMales = saveState.hideMales
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -207,6 +209,10 @@ function Survivor.InitUi()
 
     Survivor.deadSurvivorsText = ui:Text({ id = "deadSurvivors", topLeft = { x = 4.319638, y = -7.642143 }, bottomRight = { x = 4.065874, y = -7.059141 }, fontSize = 220, alignment = "MiddleCenter" })
 
+    Survivor.maleSurvivorsText = ui:Text({ id = "maleSurvivors", topLeft = { x = -6.780380, y = 7.134308 }, bottomRight = { x = -7.042556, y = 7.718416 }, fontSize = 220, alignment = "MiddleCenter" })
+
+    Survivor.femaleSurvivorsText = ui:Text({ id = "femaleSurvivors", topLeft = { x = -7.769115, y = 7.134308 }, bottomRight = { x = -8.031291, y = 7.718416 }, fontSize = 220, alignment = "MiddleCenter" })
+
     Survivor.newSurvivorBonusesInput = ui:Input({ id = "newSurvivorBonuses", topLeft = { x = 3.778204, y = -7.33247 }, bottomRight = { x = 1.031039, y = -7.164494 }, fontSize = 80, alignment = "LowerLeft", text = Survivor.newSurvivorBonuses, onValueChanged = function(value)
         Survivor.newSurvivorBonuses = value
         Survivor.newSurvivorBonusesInput:SetText(value)
@@ -220,6 +226,7 @@ function Survivor.InitUi()
         Survivor.survivorsById[survivor.id] = survivor
 
         Survivor.UpdateLivingDeadCounts()
+        Survivor.UpdateSexCounts()
         Survivor.SetPageAndRefresh(Survivor.MaxPage())
     end })
 
@@ -255,6 +262,8 @@ function Survivor.InitUi()
         BlueSquare = 1.925451,
         RedCircle = 1.205827,
         PurpleDiamond = 0.489192,
+        Females = -0.230432,
+        Males = -0.950056,
     }) do
         local attr = "hide"..suffix
         local cb = attr.."CheckBox"
@@ -278,6 +287,8 @@ function Survivor.InitUi()
     -- total hack because the board is so large and text get weird
     Survivor.livingSurvivorsText.attributes.scale = "0.1 0.2246487"
     Survivor.deadSurvivorsText.attributes.scale = "0.1 0.2246487"
+    Survivor.maleSurvivorsText.attributes.scale = "0.1 0.2246487"
+    Survivor.femaleSurvivorsText.attributes.scale = "0.1 0.2246487"
     Survivor.newSurvivorBonusesInput.attributes.scale = "0.1 0.2246487"
     Survivor.pageText.attributes.scale = "0.1 0.2246487"
 
@@ -561,7 +572,11 @@ function Survivor.InitEvents()
             Survivor.UpdateLivingDeadCounts()
         end
 
-        if stat == "dead" or stat == "retired" or stat == "skipNextHunt" or stat == "marker" then
+        if stat == "male" or stat == "female" then
+            Survivor.UpdateSexCounts()
+        end
+
+        if stat == "dead" or stat == "retired" or stat == "skipNextHunt" or stat == "marker" or stat == "male" or stat == "female" then
             Survivor.SetPageAndRefresh(Util.Min(Survivor.MaxPage(), Survivor.page))
         end
 
@@ -598,6 +613,7 @@ end
 
 function Survivor.PostInit()
     Survivor.UpdateLivingDeadCounts()
+    Survivor.UpdateSexCounts()
     Survivor.SetPageAndRefresh(Survivor.page)
 end
 
@@ -635,6 +651,8 @@ function Survivor.Save()
         hideBlueSquare = Survivor.hideBlueSquare,
         hideRedCircle = Survivor.hideRedCircle,
         hidePurpleDiamond = Survivor.hidePurpleDiamond,
+        hideFemales = Survivor.hideFemales,
+        hideMales = Survivor.hideMales,
     }
 end
 
@@ -656,6 +674,7 @@ function Survivor.Import(data)
     Survivor.InitSaveState(data)
 
     Survivor.UpdateLivingDeadCounts()
+    Survivor.UpdateSexCounts()
     Survivor.SetPageAndRefresh(Survivor.page)
 end
 
@@ -682,6 +701,8 @@ function Survivor.Export()
         hideBlueSquare = Survivor.hideBlueSquare,
         hideRedCircle = Survivor.hideRedCircle,
         hidePurpleDiamond = Survivor.hidePurpleDiamond,
+        hideFemales = Survivor.hideFemales,
+        hideMales = Survivor.hideMales,
     }
 end
 
@@ -702,6 +723,24 @@ function Survivor.UpdateLivingDeadCounts()
     Survivor.deadSurvivorsText:SetText(numDead)
 end
 
+-------------------------------------------------------------------------------------------------
+
+function Survivor.UpdateSexCounts()
+    local numMales = 0
+    local numFemales = 0
+    for _, survivor in ipairs(Survivor.survivors) do
+        if survivor:Male() then
+            numMales = numMales + 1
+        end
+        if survivor:Female() then
+            numFemales = numFemales + 1
+        end
+    end
+
+    Survivor.maleSurvivorsText:SetText(numMales)
+    Survivor.femaleSurvivorsText:SetText(numFemales)
+end
+
 ---------------------------------------------------------------------------------------------------
 
 function Survivor.SurvivorsMatchingCurrentFilters()
@@ -717,7 +756,9 @@ function Survivor.SurvivorsMatchingCurrentFilters()
             (Survivor.hideGreenTriangle and survivor:Marker() == Survivor.MARKER_GREEN_TRIANGLE) or
             (Survivor.hideBlueSquare and survivor:Marker() == Survivor.MARKER_BLUE_SQUARE) or
             (Survivor.hideRedCircle and survivor:Marker() == Survivor.MARKER_RED_CIRCLE) or
-            (Survivor.hidePurpleDiamond and survivor:Marker() == Survivor.MARKER_PURPLE_DIAMOND)
+            (Survivor.hidePurpleDiamond and survivor:Marker() == Survivor.MARKER_PURPLE_DIAMOND) or
+            (Survivor.hideFemales and survivor:Female()) or
+            (Survivor.hideMales and survivor:Male())
         )
         if not hideSurvivor then
             table.insert(survivors, survivor)
@@ -861,6 +902,7 @@ function Survivor.DestroySurvivor(survivor)
                 log:Printf("Deleted survivor %s", survivor:NameOrUnnamed())
 
                 Survivor.UpdateLivingDeadCounts()
+                Survivor.UpdateSexCounts()
                 Survivor.SetPageAndRefresh(Util.Min(Survivor.MaxPage(), Survivor.page))
 
                 EventManager.FireEvent(EventManager.ON_SURVIVOR_DESTROYED, survivor)
