@@ -297,7 +297,8 @@ function Survivor.InitSurvivorCellUi(cell)
     end })
 
     cell.insanityCounter = ui:Counter({ id = "insanity", topLeft = { x = -0.293847, y = -0.964120 }, bottomRight = { x = -0.489293, y = -0.764670 }, fontSize = 140, text = 0, onValueChanged = function(delta)
-        cell.survivor:SetInsanity(cell.survivor:Insanity() + delta)
+        local newValue = cell.survivor:Insanity() + delta
+        cell.survivor:SetInsanity(newValue)
     end })
 
     for stat, data in pairs({
@@ -1070,6 +1071,13 @@ function Survivor.UpdateCounterStat(thing, stat, value)
     local counter = thing[stat.."Counter"]
     if counter then
         thing[stat.."Counter"]:SetText(value)
+        if stat == "insanity" then
+            if value >= 3 then
+                thing[stat.."Counter"]:SetColor(Ui.LIGHT_RED)
+            else
+                thing[stat.."Counter"]:SetColor(Ui.LIGHT_BROWN)
+            end
+        end
     end
 end
 
@@ -1551,7 +1559,8 @@ function SurvivorSheetClass.Create(survivor, object)
     end })
 
     survivorSheet.insanityCounter = ui:Counter({ id = "insanity", topLeft = { x = -0.430935, y = -0.938893 }, bottomRight = { x = -0.709772, y = -0.663436 }, fontSize = 190, text = survivor:Insanity(), onValueChanged = function(delta)
-        survivorSheet.survivor:SetInsanity(survivorSheet.survivor:Insanity() + delta)
+        local newValue = survivorSheet.survivor:Insanity() + delta
+        survivorSheet.survivor:SetInsanity(newValue)
     end })
 
     for stat, data in pairs({
