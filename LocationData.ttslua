@@ -959,6 +959,12 @@ for playerNumber = 1, 4 do
         board = playerBoard,
     }
 
+    locationData[prefix.." Portrait"] = {
+        center = { x = 0.402958, y = 0.5, z = -1.220065 },
+        size = CARD_SIZE,
+        board = playerBoard,
+    }
+
     locationData[prefix.." Upper"] = {
         p1 = { x = -1, y = 0.5, z = -1 },
         p2 = { x = 1, y = 0.5, z = -1.45 },

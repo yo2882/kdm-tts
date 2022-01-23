@@ -50,6 +50,7 @@ Survivor.ALLOWED_CARD_TYPES = {
     ["Severe Injuries"] = true,
     ["Weapon Proficiencies"] = true,
     ["Player Figurine"] = true,
+    ["Portrait"] = true,
 }
 
 Survivor.MARKER_EMPTY = "MarkerEmpty"
@@ -1202,46 +1203,64 @@ function Survivor.SpawnSurvivorBox(survivor, location)
     end
 
     Archive.Take({
-       name = "Survivor Box",
-       type = "Survivor Box",
-       location = location,
-       rotation = { x = 0, y = 180, z = 0 },
-       spawnFunc = function(survivorBoxObject)
-           local survivorBox = SurvivorBoxClass.Create(survivor, survivorBoxObject)
-           Survivor.survivorBoxesBySurvivor[survivor] = survivorBox
-           Survivor.survivorBoxesByObject[survivorBoxObject] = survivorBox
+        name = "Survivor Box",
+        type = "Survivor Box",
+        location = location,
+        rotation = { x = 0, y = 180, z = 0 },
+        spawnFunc = function(survivorBoxObject)
+            local survivorBox = SurvivorBoxClass.Create(survivor, survivorBoxObject)
+            Survivor.survivorBoxesBySurvivor[survivor] = survivorBox
+            Survivor.survivorBoxesByObject[survivorBoxObject] = survivorBox
 
 
-           log:Debugf("Created survivor box %s for survivor %s", survivorBoxObject.getGUID(), survivor)
+            log:Debugf("Created survivor box %s for survivor %s", survivorBoxObject.getGUID(), survivor)
 
-           -- Custom model boxes are mad sketchy the turn they come into play: they're treated as "Generic" not "Boxes" for 1 frame
-           Wait.frames(function()
-               -- Copy the cards table since we need to clear survivor cards before putting them into the box
-               local cardsToSpawn = {}
-               for _, card in ipairs(survivor:Cards()) do
-                   table.insert(cardsToSpawn, card)
-               end
-               log:Debugf("%s cards to spawn: %s", survivor, cardsToSpawn)
+            -- Custom model boxes are mad sketchy the turn they come into play: they're treated as "Generic" not "Boxes" for 1 frame
+            Wait.frames(function()
+                -- Copy the cards table since we need to clear survivor cards before putting them into the box
+                local cardsToSpawn = {}
+                for _, card in ipairs(survivor:Cards()) do
+                    table.insert(cardsToSpawn, card)
+                end
+                log:Debugf("%s cards to spawn: %s", survivor, cardsToSpawn)
 
 
-               log:Debugf("Clearing %s cards", survivor)
-               survivor:SetCards({})
+                log:Debugf("Clearing %s cards", survivor)
+                survivor:SetCards({})
 
-               -- Spawn all cards
-               local height = 3
-               for _, card in ipairs(cardsToSpawn) do
-                   Archive.Take({ archive = card.type.." Archive", name = card.name, type = card.type, location = location, height = height, spawnFunc = function(cardObject)
-                       survivorBoxObject.putObject(cardObject)
-                   end})
-                   height = height + 0.5
+                -- Spawn all cards
+                local height = 3
+                for _, card in ipairs(cardsToSpawn) do
+                    Archive.Take({ archive = card.type.." Archive", name = card.name, type = card.type, location = location, height = height, spawnFunc = function(cardObject)
+                        survivorBoxObject.putObject(cardObject)
+                    end})
+                    height = height + 0.5
 
-                   -- Must clean up after each Take() since a survivor could have more than one of the same card
-                   Archive.Clean()
-               end
+                    -- Must clean up after each Take() since a survivor could have more than one of the same card
+                    Archive.Clean()
+                end
 
-               --Util.LookAt({ object = survivorBoxObject })
-           end, 1)
-       end,
+                --Util.LookAt({ object = survivorBoxObject })
+            end, 1)
+
+            Wait.frames(function()
+                if survivor:FigurineJSON() then
+                    local boxPosition = survivorBoxObject.getPosition()
+                    boxPosition.y = boxPosition.y + 1
+                    local figurineObject = spawnObjectJSON({json = survivor:FigurineJSON(), position = boxPosition})
+                    survivorBoxObject.putObject(figurineObject)
+                end
+            end, 1)
+
+            Wait.frames(function()
+                if survivor:PortraitJSON() then
+                    local boxPosition = survivorBoxObject.getPosition()
+                    boxPosition.y = boxPosition.y + 1
+                    local portraitObject = spawnObjectJSON({json = survivor:PortraitJSON(), position = boxPosition})
+                    survivorBoxObject.putObject(portraitObject)
+                end
+            end, 1)
+        end,
     })
 end
 
@@ -1288,6 +1307,8 @@ function SurvivorClass.Create(params)
         notes4 = params.notes4,
         notes5 = params.notes5,
         cards = params.cards or {},
+        figurineJSON = params.figurineJSON,
+        portraitJSON = params.portraitJSON,
         positionsByCardNameType = params.positionsByCardNameType or {},
     }
     setmetatable(survivor, SurvivorClass)
@@ -1336,6 +1357,8 @@ function SurvivorClass:Save()
         notes4 = self.notes4,
         notes5 = self.notes5,
         cards = self.cards,
+        figurineJSON = self.figurineJSON,
+        portraitJSON = self.portraitJSON,
         positionsByCardNameType = self.positionsByCardNameType,
     }
 end
@@ -1494,6 +1517,20 @@ end
 
 function SurvivorClass:PositionsByCardNameType() return self.positionsByCardNameType end
 function SurvivorClass:SetPositionsByCardNameType(positionsByCardNameType) self.positionsByCardNameType = positionsByCardNameType end
+
+---------------------------------------------------------------------------------------------------
+
+function SurvivorClass:FigurineJSON() return self.figurineJSON end
+function SurvivorClass:SetFigurineJSON(value)
+    self.figurineJSON = value
+end
+
+---------------------------------------------------------------------------------------------------
+
+function SurvivorClass:PortraitJSON() return self.portraitJSON end
+function SurvivorClass:SetPortraitJSON(value)
+    self.portraitJSON = value
+end
 
 ---------------------------------------------------------------------------------------------------
 

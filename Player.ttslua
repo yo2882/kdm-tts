@@ -110,6 +110,16 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Player.ForPortrait(portraitObject)
+    for _, player in ipairs(Player.players) do
+        if player.portraitObject == portraitObject then
+            return player
+        end
+    end
+end
+
+---------------------------------------------------------------------------------------------------
+
 function Player.OnObjectCollisionEnter(object, collisionInfo)
     -- This is a hack to detect flipped tokens
     -- There's no onFlip event, and flipping doesn't trigger onPickUp, so we rely on this to detect flips
@@ -155,6 +165,10 @@ function Player.OnObjectEnterContainer(container, object)
     if player then
         player:UnlinkFigurine(object)
     end
+    local player2 = Player.ForPortrait(object)
+    if player2 then
+        player2:UnlinkPortrait(object)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -171,6 +185,10 @@ function Player.OnObjectDestroy(object)
     if player then
         player:UnlinkFigurine(object)
     end
+    local player2 = Player.ForPortrait(object)
+    if player2 then
+        player2:UnlinkPortrait(object)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -178,9 +196,15 @@ end
 function Player.OnSurvivorChangeStat(survivor, stat, value)
     if stat == "name" then
         for _, player in ipairs(Player.players) do
-            if player.survivorSheet and player.survivorSheet:Survivor() == survivor and player.figurineObject then
-                log:Debugf("Updating figurine [%s] name for %s to %s", player.figurineObject.getGUID(), player, value)
-                player.figurineObject.setName(value)
+            if player.survivorSheet and player.survivorSheet:Survivor() == survivor then
+                if player.figurineObject then
+                    log:Debugf("Updating figurine [%s] name for %s to %s", player.figurineObject.getGUID(), player, value)
+                    player.figurineObject.setName(value)
+                end
+                if player.portraitObject then
+                    log:Debugf("Updating portrait [%s] name for %s to %s", player.figurineObject.getGUID(), player, value)
+                    player.portraitObject.setName(value)
+                end
             end
         end
     end
@@ -192,6 +216,9 @@ function Player.OnPlayerColorChanged(player, colorTable, colorStr)
     if player.figurineObject then
         player.figurineObject.setColorTint(colorTable)
     end
+--    if player.portraitObject then
+--        player.portraitObject.setColorTint(colorTable)
+--    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -271,6 +298,9 @@ function Player.Create(ordinal, params)
     Location.Get(playerPrefix.." Marker"):AddDropHandler(function(object)
         if object.getGMNotes() == "Player Figurine" then
             player:LinkFigurine(object)
+        end
+        if object.getGMNotes() == "Portrait" then
+            player:LinkPortrait(object)
         end
     end)
 
@@ -667,7 +697,13 @@ function Player:UnpackSurvivorBox(survivorBox)
                 location = playerPrefix.." Marker",
             })
             self:LinkFigurine(figurineObject)
-
+        elseif entry.gm_notes == "Portrait" then
+            log:Debugf("Unpacking portrait %s to self portrait", entry.guid)
+            local portraitObject = survivorBoxContainer:Take({
+                guid = entry.guid,
+                location = playerPrefix.." Portrait",
+            })
+            self:LinkPortrait(portraitObject)
         else
             local nameType = (entry.name or "")..(entry.gm_notes or "")
             if (countsByCardNameType[nameType] or 0) > 0 then
@@ -796,6 +832,12 @@ function Player:LinkSurvivorSheet(survivorSheet)
         self.figurineObject.setName(name)
     end
 
+    if self.portraitObject then
+        local name = survivorSheet:Survivor():NameOrUnnamed()
+        log:Debugf("Setting linked portrait %s name to %s", self.portraitObject.getGUID(), name)
+        self.portraitObject.setName(name)
+    end
+
     Wait.frames(function()
         -- the survivor sheet object may have been created this turn, in which case we must wait X frames
         -- before updating any XML UI elements
@@ -845,8 +887,18 @@ function Player:BackToSettlement()
             end
             container:Delete(toDelete)
         else
-            table.insert(remainingObjects, objects)
+            table.insert(remainingObjects, object)
         end
+    end
+
+    if self:FigurineObject() then
+        self:FigurineObject().destruct()
+        self:UnlinkFigurine()
+    end
+
+    if self:PortraitObject() then
+        self:PortraitObject().destruct()
+        self:UnlinkPortrait()
     end
 
     if #remainingObjects > 0 then
@@ -875,9 +927,10 @@ function Player:LinkFigurine(figurineObject)
     if self.survivorSheet then
         local name = self.survivorSheet:Survivor():NameOrUnnamed()
         figurineObject.setName(name)
+        self.survivorSheet:Survivor():SetFigurineJSON(figurineObject.getJSON())
         log:Printf("Linked figurine to player %s (%s)", self.ordinal, name)
     else
-        log:Printf("Linked figurine to player %s", self.ordinal)
+        log:Debugf("Linked figurine to player %s", self.ordinal)
     end
 
     self.figurineObject = figurineObject
@@ -899,8 +952,53 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Player:LinkPortrait(portraitObject)
+    self:UnlinkPortrait()
+
+    for _, otherPlayer in ipairs(Player.players) do
+        if otherPlayer.portraitObject == portraitObject then
+            otherPlayer:UnlinkPortrait()
+        end
+    end
+
+    log:Debugf("Linking portrait [%s] %s to %s", portraitObject.getGUID(), portraitObject.getName(), self)
+    --portraitObject.setColorTint(self.markerObject.getColorTint())
+    if self.survivorSheet then
+        local name = self.survivorSheet:Survivor():NameOrUnnamed()
+        portraitObject.setName(name)
+        self.survivorSheet:Survivor():SetPortraitJSON(portraitObject.getJSON())
+        log:Printf("Linked portrait to player %s (%s)", self.ordinal, name)
+    else
+        log:Debugf("Linked portrait to player %s", self.ordinal)
+    end
+
+    self.portraitObject = portraitObject
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Player:UnlinkPortrait()
+    local portraitObject = self.portraitObject
+    if not portraitObject then
+        return
+    end
+
+    log:Debugf("Unlinking portrait [%s] %s) from %s", portraitObject.getGUID(), portraitObject.getName(), self)
+    portraitObject.setName("Unnamed Survivor")
+    --portraitObject.setColorTint({ r = 0, g = 0, b = 0 })
+    self.portraitObject = nil
+end
+
+---------------------------------------------------------------------------------------------------
+
 function Player:FigurineObject()
     return self.figurineObject
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Player:PortraitObject()
+    return self.portraitObject
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -913,4 +1011,5 @@ return {
     Save = Player.Save,
     Players = function() return Player.players end,
     ForFigurine = Player.ForFigurine,
+    ForPortrait = Player.ForPortrait,
 }
