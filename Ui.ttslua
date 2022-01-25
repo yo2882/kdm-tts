@@ -13,7 +13,7 @@ Ui.SCALE = 0.1
 Ui.LIGHT_BROWN = "#bbb4a1"
 Ui.MID_BROWN = "#7f7059"
 Ui.DARK_BROWN = "#453824"
-<
+
 Ui.LIGHT_RED = "#E96C6C"
 Ui.DARK_RED = "#831010"
 
