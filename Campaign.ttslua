@@ -492,9 +492,9 @@ function Campaign.Import(data)
         enabledByExpansionName[expansion.name] = true
     end
     Expansion.SetEnabled(enabledByExpansionName)
-    log:Printf("Setting Unlocked Mode in Campaign.Import()")
+    --log:Printf("Setting Unlocked Mode in Campaign.Import()")
     Expansion.SetUnlockedMode(data.unlockedMode)
-    log:Printf("Setting Unlocked Mode in Campaign.Import() done")
+    --log:Printf("Setting Unlocked Mode in Campaign.Import() done")
 
     Campaign.SetupArchiveOverrides(data.expansions)
 

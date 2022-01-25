@@ -60,10 +60,10 @@ function Expansion.Init(saveState)
         Expansion.expansionsByName[expansion.name] = expansion
     end
 
-    Expansion.unlockedMode = false
+    Expansion.unlockedMode = saveState.unlockedMode
 
     Expansion.enabledByExpansionName = {}
-    for _, name in ipairs(saveState or {}) do
+    for _, name in ipairs(saveState.enabledExpansions or {}) do
         local expansion = Expansion.expansionsByName[name]
         assert(Check(expansion, "Expansion save state had unknown expansion %s", name))
         Expansion.enabledByExpansionName[name] = true
@@ -81,7 +81,10 @@ function Expansion.Save()
         end
     end
 
-    return enabledExpansions
+    return {
+        enabledExpansions = enabledExpansions,
+        unlockedMode = Expansion.unlockedMode,
+    }
 end
 
 ---------------------------------------------------------------------------------------------------

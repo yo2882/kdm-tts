@@ -601,6 +601,24 @@ function Survivor.InitEvents()
         end
     end)
 
+    EventManager.AddHandler(EventManager.ON_SURVIVOR_GETS_IN_PLAY, function(survivor)
+        for _, cell in ipairs(Survivor.cells) do
+            if cell.survivor == survivor then
+                cell.nameInput:SetTextColor(Ui.DARK_RED)
+                cell.survivor:SetInPlay(true)
+            end
+        end
+    end)
+
+    EventManager.AddHandler(EventManager.ON_SURVIVOR_BACK_TO_SETTLEMENT, function(survivor)
+        for _, cell in ipairs(Survivor.cells) do
+            if cell.survivor == survivor then
+                cell.nameInput:SetTextColor(Ui.DARK_BROWN)
+                cell.survivor:SetInPlay(false)
+            end
+        end
+    end)
+
     EventManager.AddHandler(EventManager.ON_SURVIVOR_CARDS_CHANGED, function(survivor)
         for _, cell in ipairs(Survivor.cells) do
             if cell.survivor == survivor then
@@ -971,6 +989,11 @@ function Survivor.ShowCell(cell, survivor)
 
     -- inputs
     cell.nameInput:SetText(survivor:Name())
+    if survivor:InPlay() then
+        cell.nameInput:SetTextColor(Ui.DARK_RED)
+    else
+        cell.nameInput:SetTextColor(Ui.DARK_BROWN)
+    end
     cell.weaponProficiencyTypeInput:SetText(survivor:WeaponProficiencyType())
     cell.notes1Input:SetText(survivor:Notes1())
     cell.notes2Input:SetText(survivor:Notes2())
@@ -1277,6 +1300,7 @@ function SurvivorClass.Create(params)
         female = params.female,
         reroll = params.reroll,
         skipNextHunt = params.skipNextHunt,
+        inPlay = params.inPlay or false,
         retired = params.retired,
         dead = params.dead,
         survival = params.survival or 0,
@@ -1334,6 +1358,7 @@ function SurvivorClass:Save()
         female = self.female,
         reroll = self.reroll,
         skipNextHunt = self.skipNextHunt,
+        inPlay = self.inPlay,
         retired = self.retired,
         dead = self.dead,
         marker = self.marker,
@@ -1506,6 +1531,9 @@ function SurvivorClass:SetReroll(value) self:SetBool("reroll", value) end
 
 function SurvivorClass:SkipNextHunt() return self.skipNextHunt end
 function SurvivorClass:SetSkipNextHunt(value) self:SetBool("skipNextHunt", value) end
+
+function SurvivorClass:InPlay() return self.inPlay or false end
+function SurvivorClass:SetInPlay(value) self.inPlay = value end
 
 ---------------------------------------------------------------------------------------------------
 
@@ -1828,6 +1856,7 @@ return {
         local survivorSheet = SurvivorSheetClass.Create(survivor, object)
         Survivor.survivorSheetsBySurvivor[survivor] = survivorSheet
         Survivor.survivorSheetsByObject[object] = survivorSheet
+        EventManager.FireEvent(EventManager.ON_SURVIVOR_GETS_IN_PLAY, survivor)
         return survivorSheet
     end,
 

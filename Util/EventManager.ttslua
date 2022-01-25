@@ -14,6 +14,8 @@ EventManager.ON_PLAYER_COLOR_CHANGED = "onPlayerColorChanged"
 EventManager.ON_SHOWDOWN_STARTED = "onShowdownStart"
 EventManager.ON_SHOWDOWN_ENDED = "onShowdownEnded"
 EventManager.ON_MONSTER_STAT_CHANGED = "onMonsterStatChanged"
+EventManager.ON_SURVIVOR_GETS_IN_PLAY = "onSurvivorGetsInPlay"
+EventManager.ON_SURVIVOR_BACK_TO_SETTLEMENT = "onSurvivorBackToSettlement"
 
 EventManager.handlers = {}
 EventManager.globalHandlers = {}

@@ -777,6 +777,8 @@ function Player:UnpackSurvivorBox(survivorBox)
         end, 1)
     end })
 
+    EventManager.FireEvent(EventManager.ON_SURVIVOR_GETS_IN_PLAY, survivor)
+
     return true
 end
 
@@ -907,6 +909,8 @@ function Player:BackToSettlement()
     end
 
     survivorSheet:Object().destruct()
+
+    EventManager.FireEvent(EventManager.ON_SURVIVOR_BACK_TO_SETTLEMENT, survivor)
 
     log:Printf("Returned %s to settlement", survivor:NameOrUnnamed())
 end
