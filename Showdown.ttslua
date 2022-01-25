@@ -617,6 +617,15 @@ function Showdown.CleanInternal()
     -- don't block for the huge showdown board clean
     Location.Get("Showdown Board"):BoxClean({ types = types, debug = debug })
 
+    for i, player in ipairs(Player.Players()) do
+        local playerPrefix = "Player "..player.ordinal
+        local locationString = playerPrefix.." Marker"
+        local location = Location.Get(locationString)
+        local position = location:Center()
+        position.y = position.y + 1
+        player:FigurineObject().setPositionSmooth(position, false, true)
+    end
+
     return blocking
 end
 
