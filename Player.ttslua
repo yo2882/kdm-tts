@@ -120,6 +120,16 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Player.ForBingo(bingoObject)
+    for _, player in ipairs(Player.players) do
+        if player.bingoObject == bingoObject then
+            return player
+        end
+    end
+end
+
+---------------------------------------------------------------------------------------------------
+
 function Player.OnObjectCollisionEnter(object, collisionInfo)
     -- This is a hack to detect flipped tokens
     -- There's no onFlip event, and flipping doesn't trigger onPickUp, so we rely on this to detect flips
@@ -167,7 +177,13 @@ function Player.OnObjectEnterContainer(container, object)
     end
     local player2 = Player.ForPortrait(object)
     if player2 then
+        player2.survivorSheet:Survivor().SetPortraitJSON(object.getJSON())
         player2:UnlinkPortrait(object)
+    end
+    local player3 = Player.ForBingo(object)
+    if player3 then
+        player3.survivorSheet:Survivor().SetBingoJSON(object.getJSON())
+        player3:UnlinkBingo(object)
     end
 end
 
@@ -187,8 +203,14 @@ function Player.OnObjectDestroy(object)
     end
     local player2 = Player.ForPortrait(object)
     if player2 then
+        player2.survivorSheet:Survivor().SetPortraitJSON(object.getJSON())
         player2:UnlinkPortrait(object)
     end
+    local player3 = Player.ForBingo(object)
+    if player3 then
+        player3.survivorSheet:Survivor().SetBingoJSON(object.getJSON())
+        player3:UnlinkBingo(object)
+    end    
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -205,6 +227,10 @@ function Player.OnSurvivorChangeStat(survivor, stat, value)
                     log:Debugf("Updating portrait [%s] name for %s to %s", player.figurineObject.getGUID(), player, value)
                     player.portraitObject.setName(value)
                 end
+                if player.bingoObject then
+                    log:Debugf("Updating bingo card [%s] name for %s to %s", player.bingoObject.getGUID(), player, value)
+                    player.bingoObject.setName(value .. "'s Bingo")
+                end
             end
         end
     end
@@ -219,6 +245,13 @@ function Player.OnPlayerColorChanged(player, colorTable, colorStr)
 --    if player.portraitObject then
 --        player.portraitObject.setColorTint(colorTable)
 --    end
+    if player.bingoObject then
+        player.bingoObject.editButton({
+            index = 24,
+            color = colorTable,
+        })
+        player.bingoObject.call("onSave")
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -296,11 +329,15 @@ function Player.Create(ordinal, params)
     end)
 
     Location.Get(playerPrefix.." Marker"):AddDropHandler(function(object)
-        if object.getGMNotes() == "Player Figurine" then
+        local type = object.getGMNotes()
+        if type == "Player Figurine" then
             player:LinkFigurine(object)
         end
-        if object.getGMNotes() == "Portrait" then
+        if type == "Portrait" then
             player:LinkPortrait(object)
+        end
+        if type == "Bingo Card" then
+            player:LinkBingo(object)
         end
     end)
 
@@ -372,53 +409,53 @@ function Player.InitUi(player)
         end })
     end
 
-     player.lightInjuryCheckBoxes = {}
-     local x1 = -0.314098
-     local y1 = -0.775458
-     local x2 = -0.363223
-     local y2 = -0.723353
-     local xn = -0.855320
-     local width = x2 - x1
-     local dx = (xn - x1) / 3
-     for i, hitLocation in ipairs({ "arms", "body", "waist", "legs" }) do
+    player.lightInjuryCheckBoxes = {}
+    local x1 = -0.314098
+    local y1 = -0.775458
+    local x2 = -0.363223
+    local y2 = -0.723353
+    local xn = -0.855320
+    local width = x2 - x1
+    local dx = (xn - x1) / 3
+    for i, hitLocation in ipairs({ "arms", "body", "waist", "legs" }) do
+        local topLeft = { x = x1 + (i - 1) * dx, y = y1 }
+        local bottomRight = { x = topLeft.x + width, y = y2 }
+        player.lightInjuryCheckBoxes[hitLocation] = ui:CheckBox({ id = hitLocation.."LightInjury", topLeft = topLeft, bottomRight = bottomRight, checked = player.lightInjuries[hitLocation], onClick = function()
+            local value = not player.lightInjuries[hitLocation]
+            player.lightInjuries[hitLocation] = value
+            player.lightInjuryCheckBoxes[hitLocation]:Check(value)
+        end })
+    end
+
+    local x1 = -0.166245
+    player.heavyInjuryCheckBoxes = {}
+    player.heavyInjuryCheckBoxes.head = ui:CheckBox({ id = "headHeavyInjury", topLeft = { x = x1, y = y1 }, bottomRight = { x = x1 + width, y = y2 }, checked = player.heavyInjuries.head, onClick = function()
+        local value = not player.heavyInjuries.head
+        player.heavyInjuries.head = value
+        player.heavyInjuryCheckBoxes.head:Check(value)
+    end })
+    local x1 = -0.376100
+    local xn = -0.918347
+    local dx = (xn - x1) / 3
+    for i, hitLocation in ipairs({ "arms", "body", "waist", "legs" }) do
          local topLeft = { x = x1 + (i - 1) * dx, y = y1 }
-         local bottomRight = { x = topLeft.x + width, y = y2 }
-         player.lightInjuryCheckBoxes[hitLocation] = ui:CheckBox({ id = hitLocation.."LightInjury", topLeft = topLeft, bottomRight = bottomRight, checked = player.lightInjuries[hitLocation], onClick = function()
-             local value = not player.lightInjuries[hitLocation]
-             player.lightInjuries[hitLocation] = value
-             player.lightInjuryCheckBoxes[hitLocation]:Check(value)
-         end })
-     end
+        local bottomRight = { x = topLeft.x + width, y = y2 }
+        player.heavyInjuryCheckBoxes[hitLocation] = ui:CheckBox({ id = hitLocation.."HeavyInjury", topLeft = topLeft, bottomRight = bottomRight, checked = player.heavyInjuries[hitLocation], onClick = function()
+            local value = not player.heavyInjuries[hitLocation]
+            player.heavyInjuries[hitLocation] = value
+            player.heavyInjuryCheckBoxes[hitLocation]:Check(value)
+        end })
+    end
 
-     local x1 = -0.166245
-     player.heavyInjuryCheckBoxes = {}
-     player.heavyInjuryCheckBoxes.head = ui:CheckBox({ id = "headHeavyInjury", topLeft = { x = x1, y = y1 }, bottomRight = { x = x1 + width, y = y2 }, checked = player.heavyInjuries.head, onClick = function()
-         local value = not player.heavyInjuries.head
-         player.heavyInjuries.head = value
-         player.heavyInjuryCheckBoxes.head:Check(value)
-     end })
-     local x1 = -0.376100
-     local xn = -0.918347
-     local dx = (xn - x1) / 3
-     for i, hitLocation in ipairs({ "arms", "body", "waist", "legs" }) do
-         local topLeft = { x = x1 + (i - 1) * dx, y = y1 }
-         local bottomRight = { x = topLeft.x + width, y = y2 }
-         player.heavyInjuryCheckBoxes[hitLocation] = ui:CheckBox({ id = hitLocation.."HeavyInjury", topLeft = topLeft, bottomRight = bottomRight, checked = player.heavyInjuries[hitLocation], onClick = function()
-             local value = not player.heavyInjuries[hitLocation]
-             player.heavyInjuries[hitLocation] = value
-             player.heavyInjuryCheckBoxes[hitLocation]:Check(value)
-         end })
-     end
+    ui:Button({ id = "healAndReset", topLeft = { x = -0.124014, y = -0.687478 }, bottomRight = { x = -0.323673, y = -0.596463 }, onClick = function()
+        player:HealAndReset()
+    end })
 
-     ui:Button({ id = "healAndReset", topLeft = { x = -0.124014, y = -0.687478 }, bottomRight = { x = -0.323673, y = -0.596463 }, onClick = function()
-         player:HealAndReset()
-     end })
+    ui:Button({ id = "backToSettlement", topLeft = { x = 0.910594, y = -0.139250 }, bottomRight = { x = 0.707226, y = -0.048424 }, onClick = function()
+        player:BackToSettlement()
+    end })
 
-     ui:Button({ id = "backToSettlement", topLeft = { x = 0.910594, y = -0.139250 }, bottomRight = { x = 0.707226, y = -0.048424 }, onClick = function()
-         player:BackToSettlement()
-     end })
-
-     ui:ApplyToObject()
+    ui:ApplyToObject()
 
     return player
 end
@@ -689,21 +726,42 @@ function Player:UnpackSurvivorBox(survivorBox)
     }
 
     local survivorBoxContainer = Container(survivorBox:Object())
+
     for _, entry in ipairs(survivorBoxContainer:Objects()) do
         if entry.gm_notes == "Player Figurine" then
             log:Debugf("Unpacking figurine %s to self marker", entry.guid)
             local figurineObject = survivorBoxContainer:Take({
                 guid = entry.guid,
                 location = playerPrefix.." Marker",
+                spawnFunc = function(figurineObj)
+                    self:LinkFigurine(figurineObj)
+                end,
             })
-            self:LinkFigurine(figurineObject)
+            
+        elseif entry.gm_notes == "Bingo Card" then
+            log:Debugf("Unpacking bingo card %s to self bingo card", entry.guid)
+            local bingoCardObject = survivorBoxContainer:Take({
+                guid = entry.guid,
+                location = playerPrefix.." Bingo",
+                spawnFunc = function(bingoObj)
+                    local waitId = nil
+                    waitId = Wait.time(function()
+                        if bingoObj.getButtons() then
+                            Wait.stop(waitId)
+                            self:LinkBingo(bingoObj)
+                        end
+                    end, 0.5, 5)
+                end,
+            })
         elseif entry.gm_notes == "Portrait" then
             log:Debugf("Unpacking portrait %s to self portrait", entry.guid)
             local portraitObject = survivorBoxContainer:Take({
                 guid = entry.guid,
                 location = playerPrefix.." Portrait",
+                spawnFunc = function(portraitObj)
+                    self:LinkPortrait(portraitObj)
+                end,
             })
-            self:LinkPortrait(portraitObject)
         else
             local nameType = (entry.name or "")..(entry.gm_notes or "")
             if (countsByCardNameType[nameType] or 0) > 0 then
@@ -840,6 +898,12 @@ function Player:LinkSurvivorSheet(survivorSheet)
         self.portraitObject.setName(name)
     end
 
+    if self.bingoObject then
+        local name = survivorSheet:Survivor():NameOrUnnamed()
+        log:Debugf("Setting linked bingo %s name to %s", self.bingoObject.getGUID(), name)
+        self.bingoObject.setName(name  ..  "'s Bingo")
+    end
+
     Wait.frames(function()
         -- the survivor sheet object may have been created this turn, in which case we must wait X frames
         -- before updating any XML UI elements
@@ -874,6 +938,14 @@ function Player:BackToSettlement()
 
     log:Debugf("Returning %s on %s to settlement", survivorSheet, self)
 
+    if self:PortraitObject() then
+        self.survivorSheet:Survivor():SetPortraitJSON(self:PortraitObject().getJSON())
+    end
+
+    if self:BingoObject() then
+        self.survivorSheet:Survivor():SetBingoJSON(self:BingoObject().getJSON())
+    end
+
     self:UnlinkSurvivorSheet()
 
     local remainingObjects = {}
@@ -901,6 +973,11 @@ function Player:BackToSettlement()
     if self:PortraitObject() then
         self:PortraitObject().destruct()
         self:UnlinkPortrait()
+    end
+
+    if self:BingoObject() then
+        self:BingoObject().destruct()
+        self:UnlinkBingo()
     end
 
     if #remainingObjects > 0 then
@@ -995,6 +1072,51 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Player:LinkBingo(bingoObject)
+    self:UnlinkBingo()
+
+    for _, otherPlayer in ipairs(Player.players) do
+        if otherPlayer.bingoObject == bingoObject then
+            otherPlayer:UnlinkBingo()
+        end
+    end
+
+    log:Debugf("Linking bingo [%s] %s to %s", bingoObject.getGUID(), bingoObject.getName(), self)
+    bingoObject.editButton({
+            index = 24,
+            color = self.markerObject.getColorTint(),
+    })
+    bingoObject.call("onSave")
+    if self.survivorSheet then
+        local name = self.survivorSheet:Survivor():NameOrUnnamed()
+        bingoObject.setName(name.."'s Bingo")
+        self.survivorSheet:Survivor():SetBingoJSON(bingoObject.getJSON())
+    else
+        log:Debugf("Linked bingo to player %s", self.ordinal)
+    end
+    self.bingoObject = bingoObject
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Player:UnlinkBingo()
+    local bingoObject = self.bingoObject
+    if not bingoObject then
+        return
+    end
+
+    log:Debugf("Unlinking bingo [%s] %s) from %s", bingoObject.getGUID(), bingoObject.getName(), self)
+    bingoObject.setName("Unnamed Survivor's Bingo")
+    bingoObject.editButton({
+            index = 24,
+            color = {0, 0, 0},
+    })
+    bingoObject.call("onSave")
+    self.bingoObject = nil
+end
+
+---------------------------------------------------------------------------------------------------
+
 function Player:FigurineObject()
     return self.figurineObject
 end
@@ -1003,6 +1125,12 @@ end
 
 function Player:PortraitObject()
     return self.portraitObject
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Player:BingoObject()
+    return self.bingoObject
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -1016,4 +1144,5 @@ return {
     Players = function() return Player.players end,
     ForFigurine = Player.ForFigurine,
     ForPortrait = Player.ForPortrait,
+    ForBingo = Player.ForBingo,
 }

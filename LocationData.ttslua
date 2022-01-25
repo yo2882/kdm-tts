@@ -960,7 +960,13 @@ for playerNumber = 1, 4 do
     }
 
     locationData[prefix.." Portrait"] = {
-        center = { x = 0.402958, y = 0.5, z = -1.220065 },
+        center = { x = -0.802958, y = 0.5, z = -1.220065 },
+        size = CARD_SIZE,
+        board = playerBoard,
+    }
+
+    locationData[prefix.." Bingo"] = {
+        center = { x = 0.302958, y = 0.5, z = -1.220065 },
         size = CARD_SIZE,
         board = playerBoard,
     }

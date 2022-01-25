@@ -51,6 +51,7 @@ Survivor.ALLOWED_CARD_TYPES = {
     ["Weapon Proficiencies"] = true,
     ["Player Figurine"] = true,
     ["Portrait"] = true,
+    ["Bingo Card"] = true,
 }
 
 Survivor.MARKER_EMPTY = "MarkerEmpty"
@@ -1283,6 +1284,15 @@ function Survivor.SpawnSurvivorBox(survivor, location)
                     survivorBoxObject.putObject(portraitObject)
                 end
             end, 1)
+
+            Wait.frames(function()
+                if survivor:BingoJSON() then
+                    local boxPosition = survivorBoxObject.getPosition()
+                    boxPosition.y = boxPosition.y + 1
+                    local bingoObject = spawnObjectJSON({json = survivor:BingoJSON(), position = boxPosition})
+                    survivorBoxObject.putObject(bingoObject)
+                end
+            end, 1)
         end,
     })
 end
@@ -1333,6 +1343,7 @@ function SurvivorClass.Create(params)
         cards = params.cards or {},
         figurineJSON = params.figurineJSON,
         portraitJSON = params.portraitJSON,
+        bingoJSON = params.bingoJSON,
         positionsByCardNameType = params.positionsByCardNameType or {},
     }
     setmetatable(survivor, SurvivorClass)
@@ -1384,6 +1395,7 @@ function SurvivorClass:Save()
         cards = self.cards,
         figurineJSON = self.figurineJSON,
         portraitJSON = self.portraitJSON,
+        bingoJSON = self.bingoJSON,
         positionsByCardNameType = self.positionsByCardNameType,
     }
 end
@@ -1558,6 +1570,13 @@ end
 function SurvivorClass:PortraitJSON() return self.portraitJSON end
 function SurvivorClass:SetPortraitJSON(value)
     self.portraitJSON = value
+end
+
+---------------------------------------------------------------------------------------------------
+
+function SurvivorClass:BingoJSON() return self.bingoJSON end
+function SurvivorClass:SetBingoJSON(value)
+    self.bingoJSON = value
 end
 
 ---------------------------------------------------------------------------------------------------

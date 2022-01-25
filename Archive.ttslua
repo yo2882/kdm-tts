@@ -145,6 +145,7 @@ function Archive.Take(params)
         end
 
         if Archive.direct[key] then
+            log:Printf("Taking from Archive.direct")
             -- for single item archives no need to pull intermediate container
             log:Debugf("Using direct from archive %s for %s (%s)", archive, name, type)
             return NamedObject.Get(archive).takeObject({
