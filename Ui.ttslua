@@ -489,8 +489,8 @@ function Ui:RegisterOnClick(onClick)
     assert(Check.FuncOrNil(onClick))
     self.onClick = onClick or function() end
     local onClickFunctionName = self.attributes.id.."_OnClick"
-    GLOBAL_OBJECT.setVar(onClickFunctionName, function(_, mouseButton)
-        self.onClick(mouseButton)
+    GLOBAL_OBJECT.setVar(onClickFunctionName, function(player, mouseButton)
+        self.onClick(mouseButton, player)
     end)
     self.attributes.onClick = "Global/"..onClickFunctionName
 end
@@ -521,6 +521,30 @@ function Ui:SetAttribute(attribute, type, value, nilAllowed)
     log:Debugf("Setting %s %s to %s", id, attribute, tostring(value))
     self.attributes[attribute] = value
     self.object.UI.setAttribute(id, attribute, value)
+end
+
+function Ui:GetAttribute(attribute)
+    return self.attributes[attribute]
+end
+
+function Ui:ShowForPlayer(color)
+    if self:GetAttribute("active") == false then
+        self:SetAttribute("active", "boolean", true)
+        self:SetAttribute("visibility", "string", color)
+    end
+
+    return self:GetAttribute("visibility")
+end
+
+function Ui:HideForPlayer(color)
+    if self:GetAttribute("active") == true then
+        if self:GetAttribute("visibility") == color then
+            self:SetAttribute("active", "boolean", false)
+        end
+        return self:GetAttribute("visibility")
+    else
+        return "None"
+    end
 end
 
 function Ui:Show() self:SetAttribute("active", "boolean", true) end

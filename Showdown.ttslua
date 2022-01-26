@@ -79,7 +79,7 @@ function Showdown.InitUi()
     local panel = ui:Panel({ id = "Showdown", rectAlignment = "MiddleCenter", x = 0, y = 0, width = 667, height = 632, active = false })
     Showdown.panel = panel
     panel:Image({ id = "Showdown", image = "Showdown", x = 0, y = 0, width = 667, height = 632 })
-    panel:Button({ id = "Close", x = 627, y = -10, width = 30, height = 30, onClick = Showdown.HideUi })
+    panel:Button({ id = "Close", x = 627, y = -10, width = 30, height = 30, onClick = function(mouseButton, player) Showdown.HideUi(player) end })
     local monsterScroll = panel:VerticalScroll({ id = "V", x = 20+3, y = -(109+3), width = 306-6, height = 216-6 })
     local monsterPanel = monsterScroll:Panel({ id = "Monster", x = 0, y = 0, width = 280, height = #Showdown.monsters * 30 })
     Showdown.monsterButtonGroup = monsterPanel:OptionButtonGroup({ id = "Monster", textAlignment = "MiddleLeft", fontSize = 16, onClick = Showdown.SelectMonster })
@@ -105,7 +105,7 @@ function Showdown.InitUi()
         y = y - 30
     end
 
-    panel:Button({ id = "Begin", x = 183, y = -345, width = 301, height = 60, onClick = function()
+    panel:Button({ id = "Begin", x = 183, y = -345, width = 301, height = 60, onClick = function(mouseButton, player)
         if not Showdown.monster or not Showdown.level then
             return log:Broadcastf("Please select a monster and level")
         end
@@ -119,14 +119,14 @@ function Showdown.InitUi()
         end
 
         log:Debugf("Begin showdown clicked for monster %s, level %s", Showdown.monster.name, Showdown.level.name)
-        Showdown.HideUi()
+        Showdown.HideUi(player)
         Showdown.Setup(Showdown.monster, Showdown.level)
     end })
 
-    panel:Button({ id = "Clean", x = 183, y = -552, width = 301, height = 60, onClick = function()
+    panel:Button({ id = "Clean", x = 183, y = -552, width = 301, height = 60, onClick = function(mouseButton, player)
         log:Debugf("Clean showdown clicked")
         Showdown.Clean()
-        Showdown.HideUi()
+        Showdown.HideUi(player)
     end })
 end
 
@@ -171,16 +171,28 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
-function Showdown.ShowUi()
-    log:Debugf("Showing showdown UI")
-    Showdown.panel:Show()
-    Showdown.uiOpen = true
+function Showdown.ShowUi(player)
+    log:Debugf("Showing showdown UI for ".. player.steam_name)
+
+    str = Showdown.panel:ShowForPlayer(player.color)
+
+    if str == player.color then
+        Showdown.uiOpen = true
+    else
+        log:Errorf(str .. "is already looking at the Showdown UI", player.steam_name, player.color)
+    end
 end
 
-function Showdown.HideUi()
-    log:Debugf("Hiding showdown UI")
-    Showdown.panel:Hide()
-    Showdown.uiOpen = false
+function Showdown.HideUi(player)
+    log:Debugf("Hiding showdown UI for ".. player.steam_name)
+
+    str = Showdown.panel:HideForPlayer(player.color)
+
+    if str == "None" or str == player.color then
+        Showdown.uiOpen = false
+    else
+        log:Errorf(str .. "is already looking at the Showdown UI", player.steam_name, player.color)
+    end
 end
 
 function Showdown.IsUiOpen()
@@ -618,12 +630,15 @@ function Showdown.CleanInternal()
     Location.Get("Showdown Board"):BoxClean({ types = types, debug = debug })
 
     for i, player in ipairs(Player.Players()) do
-        local playerPrefix = "Player "..player.ordinal
-        local locationString = playerPrefix.." Marker"
-        local location = Location.Get(locationString)
-        local position = location:Center()
-        position.y = position.y + 1
-        player:FigurineObject().setPositionSmooth(position, false, true)
+        local figurine = player:FigurineObject()
+        if figurine then
+            local playerPrefix = "Player "..player.ordinal
+            local locationString = playerPrefix.." Marker"
+            local location = Location.Get(locationString)
+            local position = location:Center()
+            position.y = position.y + 1
+            figurine.setPositionSmooth(position, false, true)
+        end
     end
 
     return blocking

@@ -15,7 +15,7 @@ return {
         newArchive = "Forsaker Sisters Archive",
         oldArchive = "Core Archive",
         entries = {
-         { "Core Settlement Events", "Settlement Events" },
+        { "Core Settlement Events", "Settlement Events" },
         }
     },
 

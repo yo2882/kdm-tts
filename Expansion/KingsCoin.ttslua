@@ -15,17 +15,17 @@ return {
         ["Hunt Events"] = "Fragrant Smog",
     },
 
-   archiveOverrides = {
-       newArchive = "King's Coin Archive",
-       oldArchive = "Core Archive",
-       entries = {
+    archiveOverrides = {
+        newArchive = "King's Coin Archive",
+        oldArchive = "Core Archive",
+        entries = {
         --{ "King's Man Special AI", "AI" },
         { "The Hand Special AI", "AI" },
         --{ "King's Man Hit Locations", "Hit Locations" },
         --{ "Core Rare Gear", "Gear" },
         --{ "Core Rules", "Rulebook" },
-       }
-   },
+        }
+    },
 
     settlementEvents = {
         "King's Merchant",

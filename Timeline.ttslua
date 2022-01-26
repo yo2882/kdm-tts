@@ -236,8 +236,8 @@ function Timeline.InitUi(ui)
     local panel = ui:Panel({ id = "Timeline", rectAlignment = "MiddleCenter", x = 0, y = 0, width = 1600, height = 935, active = Timeline.uiOpen })
     Timeline.panel = panel
     panel:Image({ id = "Timeline", image = "Settlement", x = 0, y = 0, width = 1600, height = 935 })
-    panel:Button({ id = "Close", x = 1570, y = 0,  width = 30, height = 30, onClick = function ()
-        Timeline.HideUi()
+    panel:Button({ id = "Close", x = 1570, y = 0,  width = 30, height = 30, onClick = function(mouseButton, player)
+        Timeline.HideUiForAll()
     end })
     Timeline.settlementNameInput = panel:Input({ id = "SettlementName", x = 198, y = -45, width = 482, height = 40, fontSize = 24, onValueChanged = function(value)
         log:Debugf("Setting settlement name to %s", value)
@@ -297,10 +297,10 @@ function Timeline.InitUi(ui)
             Timeline.milestones[i].checkBox:Check(value)
         end })
         milestone.text = panel:Text({ id = "Milestone"..i, x = 1326, y = textY, width = 86, height = 25, fontSize = 12, fontStyle = "Bold", active = false })
-        milestone.eventButton = panel:Button({ id = "MilestoneEvent"..i, x = 1417, y = buttonY, width = 145, height = 30, image = "MilestoneButton", active = false, onClick = function()
+        milestone.eventButton = panel:Button({ id = "MilestoneEvent"..i, x = 1417, y = buttonY, width = 145, height = 30, image = "MilestoneButton", active = false, onClick = function(mouseButton, player)
             local milestone = Timeline.milestones[i]
             assert(milestone)
-            Timeline.HideUi()
+            Timeline.HideUiForAll()
             local rulebook, state = Rules.RulebookAndState(milestone.event)
             Rules.SpawnRules(rulebook, state)
             --Location.Get("Rules Board"):LookAt({ pitch = 90 })
@@ -542,16 +542,42 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
-function Timeline.ShowUi()
-    log:Debugf("Showing settlement ui")
-    Timeline.panel:Show()
-    Timeline.uiOpen = true
+function Timeline.ShowUi(player)
+    log:Debugf("Showing settlement UI for ".. player.steam_name)
+
+    str = Timeline.panel:ShowForPlayer(player.color)
+
+    if str == player.color then
+        Timeline.uiOpen = true
+    else
+        log:Errorf(str .. " is already looking at the Settlement UI", player.steam_name, player.color)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
 
-function Timeline.HideUi()
-    log:Debugf("Hiding settlement ui")
+function Timeline.HideUi(player)
+    log:Debugf("Hiding settlement UI for " .. player.steam_name)
+
+    str = Timeline.panel:HideForPlayer(player.color)
+
+    if str == "None" or str == player.color then
+        Timeline.uiOpen = false
+    else
+        log:Errorf(str .. " is already looking at the Settlement UI", player.steam_name, player.color)
+    end
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Timeline.ShowUiForAll()
+    log:Debugf("Showing Timeline UI for all")
+    Timeline.panel:Show()
+    Timeline.uiOpen = true
+end
+
+function Timeline.HideUiForAll()
+    log:Debugf("Hiding Timeline UI for all")
     Timeline.panel:Hide()
     Timeline.uiOpen = false
 end
@@ -677,7 +703,7 @@ function Timeline.AddTimelineEvent(yearIndex, eventIndex, params)
     local event = Timeline.years[yearIndex].events[eventIndex]
     event.button:SetImage(Timeline.EVENT_TYPE_IMAGES[type])
     event.button:SetColors(Ui.IMAGE_COLORS)
-    event.button:SetOnClick(function(mouseButton) Timeline.DoEvent(yearIndex, eventIndex, mouseButton) end)
+    event.button:SetOnClick(function(mouseButton, player) Timeline.DoEvent(yearIndex, eventIndex, mouseButton, player) end)
     event.text:Show()
     event.text:SetText(name)
 
@@ -740,7 +766,7 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
-function Timeline.DoEvent(yearIndex, eventIndex, mouseButton)
+function Timeline.DoEvent(yearIndex, eventIndex, mouseButton, player)
     local event = Timeline.years[yearIndex].events[eventIndex].event
     assert(Check(event, "No event data for year %d, event %d", yearIndex, eventIndex))
 
@@ -753,28 +779,28 @@ function Timeline.DoEvent(yearIndex, eventIndex, mouseButton)
     else
         local handler = Timeline.eventHandlersByType[event.type]
         assert(Check(handler, "Unrecognized event type: %s", event.type))
-        handler(event)
+        handler(event, player)
     end
 end
 
 ---------------------------------------------------------------------------------------------------
 
 Timeline.eventHandlersByType = {
-    ["RulebookEvent"] = function(event)
+    ["RulebookEvent"] = function(event, player)
         if event.custom then
             return log:Debugf("Custom timeline event button, no effect")
         end
 
-        Timeline.HideUi()
+        Timeline.HideUiForAll()
         rulebook, state = Rules.RulebookAndState(event.name)
         Rules.SpawnRules(rulebook, state)
         --Location.Get("Rules Board"):LookAt({ pitch = 90 })
     end,
 
-    ["ShowdownEvent"] = function(event)
+    ["ShowdownEvent"] = function(event, player)
         if event.custom then
-            Timeline.HideUi()
-            Showdown.ShowUi()
+            Timeline.HideUiForAll()
+            Showdown.ShowUi(player)
             return
         end
 
@@ -785,15 +811,15 @@ Timeline.eventHandlersByType = {
         end
         msg = msg.."?"
         MessageBox.Show(msg, function()
-            Timeline.HideUi()
+            Timeline.HideUiForAll()
             Showdown.Setup(event.monster, event.level)
         end)
     end,
 
-    ["HuntEvent"] = function(event)
+    ["HuntEvent"] = function(event, player)
         if event.custom then
-            Timeline.HideUi()
-            Hunt.ShowUi()
+            Timeline.HideUiForAll()
+            Hunt.ShowUi(player)
             return
         end
 
@@ -804,13 +830,13 @@ Timeline.eventHandlersByType = {
         end
         msg = msg.."?"
         MessageBox.Show(msg, function()
-            Timeline.HideUi()
+            Timeline.HideUiForAll()
             Hunt.Setup(event.monster, event.level)
         end)
     end,
 
-    ["SettlementEvent"] = function(event)
-        Timeline.HideUi()
+    ["SettlementEvent"] = function(event, player)
+        Timeline.HideUiForAll()
 
         local settlementEventsLocation = Location.Get("Settlement Events")
         local deck = settlementEventsLocation:FirstObject({ types = { "Settlement Events" } })
@@ -840,6 +866,8 @@ return {
     Export = Timeline.Export,
     ShowUi = Timeline.ShowUi,
     HideUi = Timeline.HideUi,
+    ShowUiForAll = Timeline.ShowUiForAll,
+    HideUiForAll = Timeline.HideUiForAll,
     IsUiOpen = Timeline.IsUiOpen,
     MAX_YEARS = Timeline.MAX_YEARS,
     MAX_YEAR_EVENTS = Timeline.MAX_YEAR_EVENTS,

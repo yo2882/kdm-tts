@@ -221,12 +221,15 @@ function BattleUi.CalcWeapons(player, survivor)
 
         local hit = Util.Clamp(accuracy + monsterEvasion, 2, 10)
         local wound = Util.Max(monsterToughness - strength, 2)    -- sharp weapons means we need to show the target roll if it's past 10
-        local crit = Util.Clamp(10 - luck + monsterLuck, 2, 10)
+        local crit = Util.Clamp(10 - luck + monsterLuck, 2, 11)
+        if crit == 11 then
+            crit = 'X'
+        end
 
         if weapon.paired and weaponCounts[weapon.name] > 1 then
             speed = speed + weapon.speed
         end
-        if weapon.slow then
+        if weapon.slow and (weaponAndModifiers.modifiers["frenzy"] or 0) == 0 then
             speed = 1
         end
 
@@ -379,6 +382,7 @@ function BattleUi.NextTurn()
         end
         local newPosition = Location.Get("Player "..monsterControllerPlayer.." Monster Controller"):Center()
         monsterControllerObject.setPositionSmooth(newPosition, false, false)
+        monsterControllerObject.setLock(true) -- It doesn't need to move, does it ?
     else
         log:Debugf("No monster controller found")
     end

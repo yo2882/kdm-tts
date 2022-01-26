@@ -68,7 +68,7 @@ function Campaign.InitCampaignUi()
     local panel = Ui.Get2d():Panel({ id = "Campaign", rectAlignment = "MiddleCenter", x = 0, y = 0, width = 885, height = 723, active = false })
     Campaign.panel = panel
     panel:Image({ id = "Campaign", image = "Campaign", x = 0, y = 0, width = 885, height = 723 })
-    panel:Button({ id = "Close", x = 845, y = -10, width = 30, height = 30, onClick = Campaign.HideUi })
+    panel:Button({ id = "Close", x = 845, y = -10, width = 30, height = 30, onClick = function(mouseButton, player) Campaign.HideUi(player) end })
     Campaign.selectedCampaign = Campaign.campaigns[1]
     local x = 20
     local y = -30
@@ -116,7 +116,7 @@ function Campaign.InitCampaignUi()
     panel:Button({ id = "Begin", x = 117, y = -643, width = 300, height = 60, onClick = function()
         MessageBox.Show("Are you sure you want to start a new campaign?", Campaign.ImportFromCampaign)
     end })
-    panel:Button({ id = "Cancel", x = 468, y = -643, width = 300, height = 60, onClick = Campaign.HideUi })
+    panel:Button({ id = "Cancel", x = 468, y = -643, width = 300, height = 60, onClick = Campaign.HideUiForAll })
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -348,7 +348,7 @@ function Campaign.ImportFromCampaign()
         end
     end
 
-    Campaign.HideUi()
+    Campaign.HideUiForAll()
 
     local expansions = { Campaign.expansionsByName["Core"] }
     for expansionName, enabled in pairs(Campaign.selectedExpansionsNyName) do
@@ -719,7 +719,7 @@ function Campaign.SetupDeckFromExpansionComponents(name, data, params)
         type = type,
         location = location,
         rotation = rotation,
-     })
+    })
 
     if data.remove and data.remove[name] then
         deckContainer:Delete(data.remove[name])
@@ -862,16 +862,36 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
-function Campaign.ShowUi()
-    log:Debugf("Showing Campaign UI")
-    Campaign.panel:Show()
-    Campaign.uiOpen = true
+function Campaign.ShowUi(player)
+    log:Debugf("Showing Campaign UI for " .. player.steam_name)
+
+    str = Campaign.panel:ShowForPlayer(player.color)
+
+    if str == player.color then
+        Campaign.uiOpen = true
+    else
+        log:Errorf(str .. " is already looking at the Campaign UI", player.steam_name, player.color)
+    end
 end
 
 ---------------------------------------------------------------------------------------------------
 
-function Campaign.HideUi()
-    log:Debugf("Hiding Campaign UI")
+function Campaign.HideUi(player)
+    log:Debugf("Hiding Campaign UI for " .. player.steam_name)
+
+    str = Campaign.panel:HideForPlayer(player.color)
+
+    if str == "None" or str == player.color then
+        Campaign.uiOpen = false
+    else
+        log:Errorf(str .. " is already looking at the Campaign UI", player.steam_name, player.color)
+    end
+end
+
+---------------------------------------------------------------------------------------------------
+
+function Campaign.HideUiForAll()
+    log:Debugf("Hiding Campaign UI for all")
     Campaign.panel:Hide()
     Campaign.uiOpen = false
 end

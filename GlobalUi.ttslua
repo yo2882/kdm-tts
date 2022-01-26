@@ -22,16 +22,28 @@ function GlobalUi.Init()
 
     GlobalUi.buttons = {}
     for i, button in ipairs(buttons) do
-        GlobalUi.buttons[button.name] = ui:Button({ id = button.name, rectAlignment = "UpperLeft", x = 70, y = -10 - (i - 1) * 40, width = 100, height = 30, image = button.image, onClick = function()
+        GlobalUi.buttons[button.name] = ui:Button({ id = button.name, rectAlignment = "UpperLeft", x = 70, y = -10 - (i - 1) * 40, width = 100, height = 30, image = button.image, onClick = function(mousteButton, player)
             if button.module.IsUiOpen() then
-                button.module.HideUi()
+                if button.name == "Timeline" then
+                    button.module.HideUiForAll()
+                else
+                    button.module.HideUi(player)
+                end
             else
                 for _, other in ipairs(buttons) do
                     if other.name != button.name then
-                        other.module.HideUi()
+                        if other.name == "Timeline" then
+                            other.module.HideUiForAll()
+                        else
+                            other.module.HideUi(player)
+                        end
                     end
                 end
-                button.module.ShowUi()
+                if button.name == "Timeline" then
+                    button.module.ShowUiForAll()
+                else
+                    button.module.ShowUi(player)
+                end
             end
         end })
     end

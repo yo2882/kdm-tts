@@ -56,7 +56,7 @@ function Hunt.Init()
     Hunt.panel = panel
     panel:Image({ id = "Hunt", image = "Hunt", x = 0, y = 0, width = 667, height = 632 })
 
-    panel:Button({ id = "Close", x = 627, y = -10, width = 30, height = 30, onClick = Hunt.HideUi })
+    panel:Button({ id = "Close", x = 627, y = -10, width = 30, height = 30, onClick = function(mouseButton, player) Hunt.HideUi(player) end })
 
     local monsterScroll = panel:VerticalScroll({ id = "V", x = 20+3, y = -(109+3), width = 306-6, height = 216-6 })
     local monsterPanel = monsterScroll:Panel({ id = "Monster", x = 0, y = 0, width = 280, height = #Hunt.monsters * 30 })
@@ -82,7 +82,7 @@ function Hunt.Init()
         y = y - 30
     end
 
-    panel:Button({ id = "Begin", x = 183, y = -345, width = 301, height = 60, onClick = function()
+    panel:Button({ id = "Begin", x = 183, y = -345, width = 301, height = 60, onClick = function(mouseButton, player)
         if not Hunt.monster or not Hunt.level then
             log:Broadcastf("Please select a monster and level")
             return
@@ -98,14 +98,14 @@ function Hunt.Init()
 
 
         log:Debugf("Begin hunt clicked for monster %s, level %s", Hunt.monster.name, Hunt.level.level)
-        Hunt.HideUi()
+        Hunt.HideUi(player)
         Hunt.Setup(Hunt.monster, Hunt.level)
     end })
 
-    panel:Button({ id = "Cleanup", x = 183, y = -552, width = 301, height = 60, onClick = function()
+    panel:Button({ id = "Cleanup", x = 183, y = -552, width = 301, height = 60, onClick = function(mouseButton, player)
         log:Debugf("Cleanup hunt clicked")
         Hunt.Clean()
-        Hunt.HideUi()
+        Hunt.HideUi(player)
     end })
 end
 
@@ -229,16 +229,28 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
-function Hunt.ShowUi()
-    log:Debugf("Showing Hunt UI")
-    Hunt.panel:Show()
-    Hunt.uiOpen = true
+function Hunt.ShowUi(player)
+    log:Debugf("Showing Hunt UI for " .. player.steam_name)
+
+    str = Hunt.panel:ShowForPlayer(player.color)
+
+    if str == player.color then
+        Hunt.uiOpen = true
+    else
+        log:Errorf(str .. " is already looking at the Hunt UI", player.steam_name, player.color)
+    end
 end
 
-function Hunt.HideUi()
-    log:Debugf("Hiding Hunt UI")
-    Hunt.panel:Hide()
-    Hunt.uiOpen = false
+function Hunt.HideUi(player)
+    log:Debugf("Hiding Hunt UI for " .. player.steam_name)
+
+    str = Hunt.panel:HideForPlayer(player.color)
+
+    if str == "None" or str == player.color then
+        Hunt.uiOpen = false
+    else
+        log:Errorf(str .. " is already looking at the Hunt UI", player.steam_name, player.color)
+    end
 end
 
 function Hunt.IsUiOpen()

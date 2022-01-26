@@ -38,6 +38,7 @@ Player.TOKEN_STATS = {
     ["Strength Token"] = "strength",
     ["Evasion Token"] = "evasion",
     ["Luck Token"] = "luck",
+    ["Lunacy Token"] = "frenzy",
 }
 
 ---------------------------------------------------------------------------------------------------
@@ -163,6 +164,7 @@ function Player.OnObjectCollisionEnter(object, collisionInfo)
         elseif location == gearLocation then
             log:Debugf("Token [%s]%s found in %s, updating gear", object.getGUID(), object.getName(), location)
             player:UpdateGear()
+            player:UpdateStats()
             break
         end
     end
@@ -616,6 +618,34 @@ function Player:UpdateStats()
         end
     end
 
+    local playerPrefix = "Player "..self.ordinal
+    for _, location in ipairs({
+        playerPrefix.." Gear 1",
+        playerPrefix.." Gear 2",
+        playerPrefix.." Gear 3",
+        playerPrefix.." Gear 4",
+        playerPrefix.." Gear 5",
+        playerPrefix.." Gear 6",
+        playerPrefix.." Gear 7",
+        playerPrefix.." Gear 8",
+        playerPrefix.." Gear 9",
+        playerPrefix.." Fist & Tooth",
+        playerPrefix.." Armor Set",
+    }) do
+
+        for _, object in ipairs(Location.Get(location):AllObjects()) do
+            if object.tag != "Card" then
+                local stat = Player.TOKEN_STATS[object.getName()]
+                if stat == "evasion" then
+                    local value = Util.TokenValue(object)
+                    log:Debugf("Adding token %s from gear at %s", object.getName(), location)
+                    modifiers[stat] = (modifiers[stat] or 0) + value
+                    object.registerCollisions()
+                end
+            end
+        end
+    end
+
     self.survivorSheet:Survivor():SetModifiers(modifiers)
 end
 
@@ -760,6 +790,7 @@ function Player:UnpackSurvivorBox(survivorBox)
                 location = playerPrefix.." Portrait",
                 spawnFunc = function(portraitObj)
                     self:LinkPortrait(portraitObj)
+                    portraitObj.setLock(true)
                 end,
             })
         else
