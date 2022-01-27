@@ -140,6 +140,16 @@ end
 
 ---------------------------------------------------------------------------------------------------
 
+function Hunt.MonsterByNameForHunt(monsterName)
+    for _, monster in ipairs(Hunt.monsters) do
+        if monster.name == monsterName then
+            return monster
+        end
+    end
+end
+
+---------------------------------------------------------------------------------------------------
+
 function Hunt.Setup(monsterOrName, levelOrName)
     if Hunt.settingUpHunt == true then
         log:Errorf("Hunt setup currently in progress, please wait until finished before setting up another hunt. If the hunt appears to be stuck, click 'Cleanup Hunt' from the 'Cleanup' menu to reset.")
@@ -148,7 +158,8 @@ function Hunt.Setup(monsterOrName, levelOrName)
 
     local monster = nil
     if type(monsterOrName) == "string" then
-        monster = Hunt.monstersByMonsterName[monsterOrName]
+--        monster = Hunt.monstersByMonsterName[monsterOrName]
+        monster = Hunt.MonsterByNameForHunt(monsterOrName)
         assert(Check(monster, "Unknown monster %s", monsterOrName))
     else
         monster = monsterOrName

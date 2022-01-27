@@ -228,6 +228,16 @@ end
 
 -------------------------------------------------------------------------------------------------
 
+function Showdown.MonsterByNameForShowdown(monsterName)
+    for _, monster in ipairs(Showdown.monsters) do
+        if monster.name == monsterName then
+            return monster
+        end
+    end
+end
+
+-------------------------------------------------------------------------------------------------
+
 function Showdown.Setup(monsterOrName, levelOrName)
     if Showdown.settingUp then
         log:Errorf("Showdown setup currently in progress, please wait until finished before setting up another hunt. If the showdown appears to be stuck, click 'Cleanup Showdown' from the 'Cleanup' menu to reset.")
@@ -236,14 +246,19 @@ function Showdown.Setup(monsterOrName, levelOrName)
 
     local monster = nil
     if type(monsterOrName) == "string" then
-        monster = Showdown.monstersByName[monsterOrName]
+--        monster = Showdown.monstersByName[monsterOrName]
+        monster = Showdown.MonsterByNameForShowdown(monsterOrName)
         assert(Check(monster, "Unknown monster %s", monsterOrName))
     else
         monster = monsterOrName
     end
 
     local level = nil
+    if levelOrName == nil then -- Security check for Showdowns such as Watcher when launched from the Timeline.
+        levelOrName = "Level 1"
+    end
     if type(levelOrName) == "string" then
+        -- Todo: FIX IT
         level = Showdown.levelsByMonsterLevelName[monster.name..levelOrName]
         assert(Check(level, "Unknown level %s for monster %s", levelOrName, monster.name))
     else

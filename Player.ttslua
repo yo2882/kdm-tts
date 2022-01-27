@@ -92,7 +92,9 @@ function Player.Save()
         end
 
         playerSaveState.temporaryArmor = player.temporaryArmor
-        playerSaveState.injuries = player.injuries
+--        playerSaveState.injuries = player.injuries
+        playerSaveState.lightInjuries = player.lightInjuries
+        playerSaveState.heavyInjuries = player.heavyInjuries
 
         table.insert(saveState, playerSaveState)
     end
