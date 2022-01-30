@@ -48,6 +48,7 @@ end
 
 function onLoad(saveJson)
     local saveState = JSON.decode(saveJson) or {}
+    initialized = false
 
     -- Init() = everything before the UI is first rendered (includes UI setup)
     --
@@ -100,7 +101,21 @@ function onLoad(saveJson)
         Player.PostInit()
         Timeline.PostInit()
         BattleUi.PostInit()
+        initialized = true
     end, 20)
 end
 
 ---------------------------------------------------------------------------------------------------
+
+function getPlayerInfo(ordinal)
+    log(ordinal)
+    if initialized then
+        local players = Player.Players()
+        local player = players[ordinal]
+        return {
+            name = player.survivorSheet:Survivor().name,
+            color = player.markerObject.getColorTint(),
+        }
+    end
+    return nil
+end
