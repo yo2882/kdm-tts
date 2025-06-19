@@ -125,7 +125,7 @@ return {
                 ["Wandering Watcher Hunt Events 1-4"] = {
                     keywords = { "Wandering" , "Watcher" , "Hunt", "Events" },
                     state = 4,
-                },1
+                },
                 ["Wandering Watcher Hunt Events 5-10"] = {
                     keywords = { "Wandering" , "Watcher" , "Hunt", "Events" },
                     state = 5,
@@ -415,6 +415,12 @@ return {
             { "Mounted King's Man Special AI", "AI" },
             { "Cursed Gregalope Hit Locations", "Hit Locations" },
 
+            { "Wandering Watcher", "Monster Figurine" },
+            { "Wandering Watcher Info", "AI" },
+            { "Wandering Watcher Basic Action", "AI" },
+            { "Wandering Watcher Legendary Action", "AI" },
+            { "Wandering Watcher Special AI", "AI" },
+
         },
     },
     
@@ -627,7 +633,7 @@ return {
                 },
                 {
                     terrain = "2 Hooded Knights",
-                    terrainTile = "Hooded Knight"
+                    terrainTile = "Hooded Knight",
                     positions = { "(6, 1)", "(17, 1)", "(6, 22)", "(17, 22)" },
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
@@ -836,7 +842,7 @@ return {
                     positions = { "(10, 6.5)", "(11.5, 5)", "(13, 6.5)" },
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
-            }
+            },
             specialTerrain = {
                 {
                     terrain = "Cursed Gregalope",
@@ -881,6 +887,10 @@ return {
             resourcesDeck = false,
             advancedAiDeck = false,
             legendaryAiDeck = false,
+            
+            basicAiDeck = "Watcher Basic AI",
+            hitLocationsDeck = "Watcher Hit Locations",
+            
             position = "(11.5, 2.5)",
             playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
             fixedTerrain = {
@@ -899,7 +909,7 @@ return {
                     positions = { "(7.5, 5)", "(15.5, 11)", },
                     rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
                 },
-            }
+            },
             specialTerrain = {
                 { terrain = "Stairwell" },
                 { terrain = "Smoldering Shelf" },
