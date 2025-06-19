@@ -1,0 +1,962 @@
+return {
+    name = "Cinder Festival",
+
+    archiveOverrides = {
+        newArchive = "Community Edition Archive",
+        oldArchive = "Core Archive",
+        entries = {
+            { "Core Rules", "Rulebook" },
+        },
+    },
+
+    components = {
+        ["Terrain"]                 = "Cinder Festival Terrain",
+        ["Terrain Tiles"]           = "Cinder Festival Terrain Tiles",
+        ["Strange Resources"]       = "Cinder Festival Strange Resources",
+        ["Settlement Events"]       = "Cinder Festival Settlement Events",
+        ["Bookmarks"]               = "Monster Patte",
+        ["Settlement Locations"]    = "Cinder Festival Settlement Locations",
+        ["Innovations"]             = "Cinder Festival Innovations",
+        ["Disorders"]               = "Cinder Festival Disorders",
+        ["Abilities"]               = "Cinder Festival Abilities",
+        ["Fighting Arts"]           = "Take Cover",
+        ["Secret Fighting Arts"]    = "Cinder Festival Secret Fighting Arts",
+        ["Rare Gear"]               = "Cinder Festival Rare Gear",
+    },
+
+    settlementEvents = {
+        "Vivid Dreams",
+        "The Unblemished Man",
+        "They Await the King",
+    },
+
+    timelineEvents = {
+        { year = 7, type = "RulebookEvent", name = "Phoenix Feather (CF)" },
+        { year = 21, name = "Dream Walker", type = "RulebookEvent" },
+        { year = 22, name = "Scorched Trail", type = "RulebookEvent" },
+        { year = 25, name = "Floating Embers", type = "RulebookEvent" },
+        { year = 26, name = "The Twilight Knight", type = "RulebookEvent" },
+        { year = 27, name = "The Cursed Steed", type = "RulebookEvent" },
+        { year = 29, name = "The Cinder Festival", type = "RulebookEvent" },
+        { year = 30, name = "The Path Forward", type = "RulebookEvent" },
+    },
+
+    terrain = {
+        ["2 Boulders"]            = { terrainTile = "Boulder", count = 2 },
+        ["6 Beaten Paths"]        = { terrainTile = "Beaten Path", count = 6 },
+        ["2 Lantern Pedestials"]  = { terrainTile = "Lantern Pedestial", count = 2 },
+        ["6 Rocky Paths"]         = { terrainTile = "Rocky Path", count = 6 },
+        ["2 Briar Patch"]         = { terrainTile = "Briar Patch", count = 2 },
+        ["Downed Tree"]           = { terrainTile = "Downed Tree", count = 1 },
+        ["2 Time Puddles"]        = { terrainTile = "Time Puddles", count = 2 },
+        ["Stone Stair"]           = { terrainTile = "Stone Stair", count = 1 },
+    },
+
+    terrainTileSizes = {
+        ["Vermin Swarm"]                        = { x = 1, y = 1 },
+        ["Time Puddle"]                         = { x = 1, y = 1 },
+        ["Hooded Knight"]                       = { x = 1, y = 1 },
+        ["Rocky Path"]                          = { x = 1, y = 1 },
+        ["Beaten Path"]                         = { x = 1, y = 1 },
+        ["Lantern Pedestal"]                    = { x = 1, y = 1 },
+        ["Watcher Polyp"]                       = { x = 1, y = 1 },
+        ["Mad Spectre"]                         = { x = 1, y = 1 },
+
+        ["Stairwell"]                           = { x = 1, y = 2 },
+        ["Bookshelf / Smoldering Shelf"]        = { x = 1, y = 2 },
+
+        ["King's Man"]                          = { x = 2, y = 2 },
+        ["Twilight Knight"]                     = { x = 2, y = 2 },
+        ["King"]                                = { x = 2, y = 2 },
+        ["Half-Eaten Monster"]                  = { x = 2, y = 2 },
+        ["Boulder"]                             = { x = 2, y = 2 },
+        ["Cursed Gregalope"]                    = { x = 2, y = 2 },
+        ["Briar Patch"]                         = { x = 2, y = 2 },
+        ["Scribe's Desk"]                       = { x = 2, y = 2 },
+        ["Watcher Corpse"]                      = { x = 2, y = 2 },
+        ["Charnal Crow"]                        = { x = 2, y = 2 },
+        ["Dream Wake"]                          = { x = 2, y = 2 },
+        ["Grand Master"]                        = { x = 2, y = 2 },
+
+        ["Exhausted Lantern Horde"]             = { x = 3, y = 3 },
+        ["Cyclone of Existence"]                = { x = 3, y = 3 },
+
+        ["Stone Stair"]                         = { x = 2, y = 4 },
+        ["Downed Tree"]                         = { x = 2, y = 4 },
+    },
+
+    armorStats = {
+        ["Rainbow Cloak"]               = { head = 0, arms = 0, body = 4, waist = 0, legs = 0 },
+        ["Lucid Twilight Cloak"]        = { head = 3, arms = 0, body = 3, waist = 0, legs = 0 },
+        ["Refined Lantern Greaves"]     = { head = 0, arms = 0, body = 0, waist = 0, legs = 6 },
+        ["Refined Lantern Cuirass"]     = { head = 0, arms = 0, body = 6, waist = 0, legs = 0 },
+        ["Refined Lantern Helm"]        = { head = 6, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Refined Lantern Gauntlets"]   = { head = 0, arms = 6, body = 0, waist = 0, legs = 0 },
+        ["Refined Lantern Mail"]        = { head = 0, arms = 0, body = 0, waist = 6, legs = 0 },
+        ["Regal Cape"]                  = { head = 0, arms = 0, body = 3, waist = 0, legs = 0 },
+        ["Gambler's Mask"]              = { head = 2, arms = 0, body = 0, waist = 0, legs = 0 },
+        ["Ancient Hero's Cowl"]         = { head = 0, arms = 0, body = 3, waist = 0, legs = 0 },
+        ["Refined Lantern Cuirass"]     = { head = 0, arms = 0, body = 6, waist = 0, legs = 0 },
+    },
+
+    weaponStats = {
+        ["Flawless Steel Pike"]     = { speed = 2, accuracy = 5, strength = 7, sharp = true, },
+        ["Flawless Steel Sword"]    = { speed = 3, accuracy = 5, strength = 7, sharp = true, deadly = 2, },
+        ["Flawless Steel Axe"]      = { speed = 2, accuracy = 4, strength = 8, sharp = true, savage = 1, },
+        ["Arquebus"]                = { speed = 1, accuracy = 6, strength = 10, devastating = 1, slow = true, },
+        ["Empyreal Dagger"]         = { speed = 3, accuracy = 5, strength = 0, paired = true, deadly = 2, },
+        ["Empyreal Arrow"]          = { speed = 1, accuracy = 6, strength = 5, slow = true, },
+        ["Godslayer"]               = { speed = 2, accuracy = 6, strength = 18, slow = true, sharp = true, devastating = 2, },
+        ["Hand Cannon"]             = { speed = 1, accuracy = 7, strength = 9, savage = 1, slow = true, },
+        ["Gilded Thundermaul"]      = { speed = 2, accuracy = 6, strength = 10, },
+        ["Relic Shield"]            = { speed = 1, accuracy = 6, strength = 7, },
+        ["Blood Katana"]            = { speed = 3, accuracy = 4, strength = 6, sharp = true },
+        ["Dragoon King"]            = { speed = 2, accuracy = 7, strength = 13, devastating = 1, },
+    },
+
+    rulebooks = {
+        {
+            name = "Cinder Festival Rules",
+            pages = {
+                ["Cinder Festival Table of Content"] = {
+                    keywords = { "Table of Content" },
+                    state = 1,
+                },
+                ["Wandering Watcher Hunt Events 1-4"] = {
+                    keywords = { "Wandering" , "Watcher" , "Hunt", "Events" },
+                    state = 4,
+                },1
+                ["Wandering Watcher Hunt Events 5-10"] = {
+                    keywords = { "Wandering" , "Watcher" , "Hunt", "Events" },
+                    state = 5,
+                },
+                ["Ruined Library"] = {
+                    keywords = { "Ruined" , "Library" },
+                    state = 6,
+                },
+                ["Phoenix Feather (CF)"] = {
+                    keywords = { "Phoenix" , "Feather" },
+                    state = 7,
+                    timelineEvent = true,
+                },
+                ["Dream Walker"] = {
+                    keywords = { "Dream" , "Walker" },
+                    state = 8,
+                    timelineEvent = true,
+                },
+                ["Scorched Trail"] = {
+                    keywords = { "Scorched" , "Trail" },
+                    state = 9,
+                    timelineEvent = true,
+                },
+                ["The Twilight Knight"] = {
+                    keywords = { "Twilight" , "Knight" },
+                    state = 10,
+                    timelineEvent = true,
+                },
+                ["Floating Embers"] = {
+                    keywords = { "Floating" , "Embers" },
+                    state = 11,
+                    timelineEvent = true,
+                },
+                ["The Cursed Steed"] = {
+                    keywords = { "The" , "Cursed" , "Steed" },
+                    state = 11,
+                    timelineEvent = true,
+                },
+                ["The Cinder Festival"] = {
+                    keywords = { "The" , "Cinder" , "Festival" },
+                    state = 12,
+                    timelineEvent = true,
+                },
+                ["Bizarre Bazaar"] = {
+                    keywords = { "Bizarre" , "Bazaar" },
+                    state = 13,
+                },
+                ["Roaring Back"] = {
+                    keywords = { "Roaring" , "Back" },
+                    state = 14,
+                },
+                ["Showdown: Mounted King's Man"] = {
+                    keywords = { "Showdown:" , "Mounted" , "King's" , "Man" },
+                    state = 15,
+                    showdown = true,
+                },
+                ["Haunted Quill"] = {
+                    keywords = { "Haunted" , "Quill" },
+                    state = 16,
+                },
+                ["The Path Forward"] = {
+                    keywords = { "The" , "Path" , "Forward" },
+                    state = 16,
+                    timelineEvent = true,
+                },
+                ["Showdown: Gold Smoke Knight"] = {
+                    keywords = { "Showdown:" , "Gold" , "Smoke" , "Knight" },
+                    state = 17,
+                    showdown = true,
+                },
+                ["Showdown: Wandering Watcher"] = {
+                    keywords = { "Showdown:" , "Wandering" , "Watcher" },
+                    state = 18,
+                    showdown = true,
+                },
+                ["Honor The Fallen"] = {
+                    keywords = { "Honor" , "The" , "Fallen" },
+                    state = 19,
+                },
+                ["Fuming Forge"] = {
+                    keywords = { "Fuming" , "Forge" },
+                    state = 19,
+                },
+                ["Rage Against"] = {
+                    keywords = { "Rage" , "Against" },
+                    state = 20,
+                },
+                ["Shattered Dreams"] = {
+                    keywords = { "Shattered" , "Dreams" },
+                    state = 21,
+                },
+                ["What Dreams May Come"] = {
+                    keywords = { "What" , "Dreams" , "May" , "Come" },
+                    state = 22,
+                },
+                ["Those Who Wander"] = {
+                    keywords = { "Those" , "Who" , "Wander" },
+                    state = 23,
+                },
+                ["Followed"] = {
+                    keywords = { "Followed" },
+                    state = 23,
+                    timelineEvent = true,
+                },
+                ["Showdown: The Twilight Order"] = {
+                    keywords = { "Showdown:" , "The" , "Twilight" , "Order" },
+                    state = 24,
+                    showdown = true,
+                },
+                ["Showdown: Ethereal Dreamer"] = {
+                    keywords = { "Showdown:" , "Ethereal" , "Dreamer" },
+                    state = 25,
+                    showdown = true,
+                },
+                ["The Way of The Master"] = {
+                    keywords = { "The" , "Way" , "of" , "The" , "Master" },
+                    state = 26,
+                },
+                ["Dream Odyssey"] = {
+                    keywords = { "Dream" , "Odyssey" },
+                    state = 26,
+                },
+                ["Dreamwave"] = {
+                    keywords = { "Dreamwave" },
+                    state = 27,
+                    timelineEvent = true,
+                },
+                ["Regal Horrors"] = {
+                    keywords = { "Regal" , "Horrors" },
+                    state = 28,
+                    timelineEvent = true,
+                },
+                ["Phoney King"] = {
+                    keywords = { "Phoney" , "King" },
+                    state = 29,
+                },
+                ["Library of Corpses"] = {
+                    keywords = { "Library" , "of" , "Corpses" },
+                    state = 30,
+                },
+                ["Legendary Showdown: King's Court"] = {
+                    keywords = { "Legendary" , "Showdown:" , "King's" , "Court" },
+                    state = 31,
+                    showdown = true,
+                },
+                ["Epilogue"] = {
+                    keywords = { "Epilogue" },
+                    state = 32,
+                },
+                ["Brain Drain"] = {
+                    keywords = { "Brain" , "Drain" },
+                    state = 33,
+                },
+                ["Desperate Search"] = {
+                    keywords = { "Desperate" , "Search" },
+                    state = 34,
+                },
+                ["Legendary Showdown: Golden Eyed King Reborn"] = {
+                    keywords = { "Legendary" , "Showdown:" , "Golden" , "Eyed" , "King" , "Reborn" },
+                    state = 35,
+                    showdown = true,
+                },
+                ["Legendary Showdown: Mangled Throne"] = {
+                    keywords = { "Legendary" , "Showdown:" , "Mangled" , "Throne" },
+                    state = 36,
+                    showdown = true,
+                },
+                ["Time and Place"] = {
+                    keywords = { "Time" , "and" , "Place" },
+                    state = 37,
+                },
+                ["Restoration"] = {
+                    keywords = { "Restoration" },
+                    state = 38,
+                },
+                ["Showdown: The Traveler"] = {
+                    keywords = { "Showdown:" , "The" , "Traveler" },
+                    state = 39,
+                    showdown = true,
+                },
+                ["Time to Die"] = {
+                    keywords = { "Time" , "to" , "Die" },
+                    state = 40,
+                },
+                ["Glossary"] = {
+                    keywords = { "Glossary" },
+                    state = 41,
+                },
+            }
+        },
+    },
+
+    guidNames = { ["8d16e3"] = "Cinder Festival Archive" },
+
+    archiveEntries = {
+        archive = "Cinder Festival Archive",
+        entries = {
+            { "Cinder Festival Abilities", "Abilities" },
+            { "Take Cover", "Fighting Arts" },
+            { "Cinder Festival Secret Fighting Arts", "Secret Fighting Arts" },
+            { "Cinder Festival Disorders", "Disorders" },
+            { "Cinder Festival Strange Resources", "Strange Resources" },
+
+            { "Cinder Festival Terrain", "Terrain" },
+            { "Cinder Festival Special Terrain", "Terrain" },
+            { "Cinder Festival Terrain Tiles", "Terrain Tiles" },
+            { "Monster Patte", "Bookmarks"},
+
+            { "Cinder Festival Settlement Events", "Settlement Events" },
+
+            { "Cinder Festival Innovations", "Innovations" },
+
+            { "Cinder Festival Settlement Locations", "Settlement Locations" },
+
+            { "Cinder Festival Rare Gear", "Gear" },
+
+            { "Ethereal Dreamer", "Monster Figurine" },
+
+            { "Order Member", "Monster Figurine" },
+
+            { "Traveler", "Monster Figurine" },
+
+            { "Mangled Throne", "Monster Figurine" },
+            { "Mangled Throne Info", "AI" },
+            { "Mangled Throne Basic Action", "AI" },
+            { "Mangled Throne Basic AI", "AI" },
+            { "Mangled Throne Advanced AI", "AI" },
+            { "Mangled Throne Legendary AI", "AI" },
+            { "Mangled Throne Special AI", "AI" },
+            { "Mangled Throne Hit Locations", "Hit Locations" },
+
+            { "Golden Eyed King Reborn", "Monster Figurine" },
+            { "Golden Eyed King Reborn Info", "AI" },
+            { "Golden Eyed King Reborn Basic Action", "AI" },
+            { "Golden Eyed King Reborn Basic AI", "AI" },
+            { "Golden Eyed King Reborn Advanced AI", "AI" },
+            { "Golden Eyed King Reborn Legendary AI", "AI" },
+            { "Golden Eyed King Reborn Special AI", "AI" },
+            { "Golden Eyed King Reborn Hit Locations", "Hit Locations" },
+            { "Golden Eyed King Reborn Resources", "Monster Resources" },
+
+            { "King's Court", "Monster Figurine" },
+            { "King's Court Info", "AI" },
+            { "King's Court Basic Action", "AI" },
+            { "King's Court Basic AI", "AI" },
+            { "King's Court Advanced AI", "AI" },
+            { "King's Court Legendary AI", "AI" },
+            { "King's Court Special AI", "AI" },
+            { "King's Court Hit Locations", "Hit Locations" },
+
+            { "Ethereal Dreamer", "Monster Figurine" },
+            { "Ethereal Dreamer Info", "AI" },
+            { "Ethereal Dreamer Basic Action", "AI" },
+            { "Ethereal Dreamer Basic AI", "AI" },
+            { "Ethereal Dreamer Legendary AI", "AI" }, -- watcher polyps deck
+            { "Ethereal Dreamer Special AI", "AI" },
+            { "Ethereal Dreamer Hit Locations", "Hit Locations" },
+
+            { "Gold Smoke Knight (CF)", "Monster Figurine" },
+            { "Gold Smoke Knight (CF) Info", "AI" },
+            { "Gold Smoke Knight (CF) Basic Action", "AI" },
+            { "Gold Smoke Knight (CF) Basic AI", "AI" },
+            { "Gold Smoke Knight (CF) Advanced AI", "AI" },
+            { "Gold Smoke Knight (CF) Legendary AI", "AI" },
+            { "Gold Smoke Knight (CF) Special AI", "AI" },
+            { "Gold Smoke Knight (CF) Hit Locations", "Hit Locations" },
+            { "Gold Smoke Knight (CF) Resources", "Monster Resources" },
+
+            { "Twilight Order", "Monster Figurine" },
+            { "Twilight Order Info", "AI" },
+            { "Twilight Order Basic Action", "AI" },
+            { "Twilight Order Basic AI", "AI" },
+            { "Twilight Order Legendary AI", "AI" }, -- challenge deck
+            { "Twilight Order Special AI", "AI" },
+            { "Twilight Order Hit Locations", "Hit Locations" },
+
+            { "Traveler", "Monster Figurine" },
+            { "Traveler Info", "AI" },
+            { "Traveler Basic Action", "AI" },
+            { "Traveler Basic AI", "AI" },
+            { "Traveler Special AI", "AI" },
+            { "Traveler Hit Locations", "Hit Locations" },
+
+            { "Mounted King's Man", "Monster Figurine" },
+            { "Mounted King's Man Info", "AI" },
+            { "Mounted King's Man Basic Action", "AI" },
+            { "Mounted King's Man Special AI", "AI" },
+            { "Cursed Gregalope Hit Locations", "Hit Locations" },
+
+        },
+    },
+    
+    monsters = {
+        {
+            name = "Mangled Throne",
+            size = { x = 3, y = 3 },
+            rules = { "Cinder Festival Rules", 36 },
+            resourcesDeck = false,
+            position = "(11, 8)",
+            playerPositions = { "(9, 13)", "(10, 14)", "(11, 14)", "(12, 14)" },
+            playerRotations = {{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
+            fixedTerrain = {
+                {
+                    terrain = "2 Tall Grass",
+                    positions = { "(4.5, 1.5)", "(17.5, 1.5)", "(4.5, 14.5)", "(17.5, 14.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Charnal Crow",
+                    positions = { "(1.5, 1.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Downed Tree",
+                    positions = { "(3.5, 4.5)" },
+                    rotations = { { x = 0, y = 90, z = 0 } },
+                },
+                {
+                    terrain = "2 Boulders",
+                    positions = { "(4, 1)", "(3, 2)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "2 Briar Patch",
+                    positions = { "(4.5, 12.5)", "(9.5, 5.5)", "(13.5, 9.5)", "(17.5, 3.5)" },
+                    rotations = { { x = 0, y = 90, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 0, z = 0 } },
+                },
+            },
+            specialTerrain = {
+                {
+                    terrain = "4 Vermin Swarm",
+                    terrainTile = "Vermin Swarm",
+                    positions = { "(2, 4)", "(1, 14)", "(7, 1)", "(20, 2)", "(6, 11)", "(11, 11)", "(13, 6)", "(19, 14)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, },
+                
+                },
+                {
+                    terrain = "Charnal Crow",
+                    terrainTile = "Charnal Crow",
+                    positions = { "(1.5, 1.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                 },
+            },
+            miscObject = { name = "Lonely Fruit", type = "Terrain Tiles" },
+            levels = {
+                {
+                    name = "Mangled Throne",
+                    level = 5,
+                    showdown = {
+                        starting = {
+                            special = { "Bear Fruit", "Impenetrable Trunk", "Moving Ground", "Maulberry Fruit", "Feast", "Charged Storm" },
+                        },
+                        basic = 8,
+                        advanced = 5,
+                        legendary = 2,
+                        life = 25,
+                        toughness = 25,
+                        speed = 2,
+                        damage = 3,
+                        accurary = 2,
+                        luck = 2,
+                    },
+                },
+            },
+        },
+        {
+            name = "Golden Eyed King Reborn",
+            size = { x = 3, y = 3 },
+            rules = { "Cinder Festival Rules", 35 },
+            position = "(12, 9)",
+            playerPositions = { "(10, 15)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            fixedTerrain = {
+                {
+                    terrain = "Nightmare Tree",
+                    positions = { "(12, 9)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "2 Briar Patch",
+                    positions = { "(9.5, 6.5)", "(14.5, 6.5)", "(9.5, 11.5)", "(14.5, 11.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 90, z = 0 }, { x = 0, y = 0, z = 0 } },
+                },
+                {
+                    terrain = "2 Time Puddles",
+                    positions = { "(8, 9)", "(14, 9)", "(13, 6)", "(11, 12)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            },
+            randomTerrain = 2,
+            levels = {
+                {
+                    name = "Golden Eyed King Reborn",
+                    level = 5,
+                    showdown = {
+                        rules = { "Cinder Festival Rules", 35 },
+                        survivorStatus = { "Dreaded Decade", "Dreaded Decade", "Dreaded Decade", "Dreaded Decade" },
+                        starting = {
+                            legendary = { "Top of the Food Chain" },
+                            special = { "Materialize", "Spiral Age", "Zeal", "Prime of Life" },
+                            misc = { "Indomitable", "Berserker", "Weak Spot", "Golden Eyes" },
+                        },
+                        customBasic = { "Bored", "Instant Wing Strike", "Peck", "Peck", "Pustule Cannons" },
+                        customAdvanced = { "The Difference Between Us", "Gouge & Feast", "Ripple", "Wing Punch" },
+                        miscHitLocations = { "Forever Young", "Ignite", "Fell Swoop", "Grub Forage" },
+                        removeHitLocations = { "Glorious Arm Pit", "Soft Lower Gut" },
+                        life = 25,
+                        movement = 10,
+                        toughness = 25,
+                        speed = 2,
+                        damage = 3,
+                        evasion = 2,
+                        luck = 1000,
+                        unfixedTerrain = { "Ore Vein", "Bug Patch" },
+                    },
+                },
+            },
+        },
+        {
+            name = "King's Court",
+            nemesis = true,
+            size = { x = 2, y = 2 },
+            rules = { "Cinder Festival Rules", 31 },
+            resourcesDeck = false,
+            legendaryAiDeck = false,
+            position = "(11.5, 8.5)",
+            playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            specialTerrain = {
+                {
+                    terrain = "Scribe's Desk",
+                    terrainTile = "Scribe's Desk",
+                    positions = { "(11.5, 1.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "King",
+                    terrainTile = "King",
+                    positions = { "(11.5, 5.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "4 King's Men",
+                    terrainTile = "King's Man",
+                    positions = { "(1.5, 8.5)", "(21.5, 8.5)", "(4.5, 13.5)", "(18.5, 13.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            },
+            levels = {
+                {
+                    name = "King's Court",
+                    level = 4,
+                    showdown = {
+                        survivorStatus = { "Polarized Aura", "Polarized Aura", "Polarized Aura", "Polarized Aura" },
+                        starting = {
+                            special = { "Red Lens", "Green Lens", "Blue Lens", "Ghost Step", "Impossible Eyes", "Regal Order", "Dry Quill", "Untold Secrets" },
+                            misc = { "Indomitable" },
+                        },
+                        removeHitLocations = { "Glided Codpiece" },
+                        basic = 10,
+                        advanced = 2,
+                        movement = 6,
+                        toughness = 30,
+                        speed = 3,
+                        damage = 6,
+                        accurary = 2,
+                    },
+                },
+            },
+        },
+        {
+            name = "Ethereal Dreamer",
+            nemesis = true,
+            size = { x = 4, y = 4 },
+            rules = { "Cinder Festival Rules", 25 },
+            resourcesDeck = false,
+            position = "(11.5, 8.5)",
+            playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            
+            fixedTerrain = {
+                {
+                    terrain = "3 Stone Columns",
+                    positions = { "(8, 3.5)", "(15, 3.5)", "(8, 13.5)", "(15, 13.5)", "(5, 8.5)", "(18, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            },
+            specialTerrain = {
+                { terrain = "Dreamer's Tail" },
+                { terrain = "Dream Board" },
+                {
+                    terrain = "Dream Wake",
+                    terrainTile = "Dream Wake",
+                    positions = { "(11.5, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "10 Watcher Polyps",
+                    terrainTile = "Dream Wake",
+                    positions = { "(9, 6)", "(14, 6)", "(9, 11)", "(14, 11)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "2 Hooded Knights",
+                    terrainTile = "Hooded Knight"
+                    positions = { "(6, 1)", "(17, 1)", "(6, 22)", "(17, 22)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            },
+            levels = {
+                {
+                    name = "Ethereal Dreamer",
+                    level = 4,
+                    showdown = {
+                        survivorStatus = { "Polarized Aura", "Polarized Aura", "Polarized Aura", "Polarized Aura" },
+                        starting = {
+                            special = { "Surfaced", "Invulnerable", "Phantasmagoria", "Whalesong", "Wide Awake" },
+                        },
+                        life = 10,
+                        basic = 12,
+                        movement = 100,
+                        toughness = 30,
+                        luck = 3,
+                    },
+                },
+            },
+        },
+        {
+            name = "Gold Smoke Knight (CF)",
+            nemesis = true,
+            size = { x = 2, y = 2 },
+            rules = { "Cinder Festival Rules", 17 },
+            position = "(11.5, 8.5)",
+            playerPositions = { "(8, 5)", "(15, 5)", "(8, 12)", "(15, 12)" },
+            playerRotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
+
+            fixedTerrain = {
+                {
+                    terrain = "3 Stone Columns",
+                    positions = { "(8, 3.5)", "(15, 3.5)", "(8, 13.5)", "(15, 13.5)", "(5, 8.5)", "(18, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            },
+            
+            specialTerrain = {
+                {
+                    terrain = "Exhausted Lantern Horde",
+                    terrainTile = "Exhausted Lantern Horde",
+                    positions = { "(2, 8)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Watcher Corpse",
+                    terrainTile = "Watcher Corpse",
+                    positions = { "(18.5, 3.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+            },
+            levels = {
+                {
+                    name = "Gold Smoke Knight (CF)",
+                    level = 1,
+                    showdown = {
+                        basic = 9,
+                        advanced = 7,
+                        legendary = 2,
+                        movement = 8,
+                        toughness = 27,
+                        starting = {
+                            special = { "Blacken", "Frustration", "Mauler", "Secondary Forge", "Fuming" },
+                            misc = { "Indomitable" },
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = "Twilight Order",
+            nemesis = true,
+            size = { x = 2, y = 2 },
+            rules = { "Cinder Festival Rules", 24 },
+            resourcesDeck = false,
+            position = "(11.5, 5.5)",
+            playerPositions = { "(11, 12)", "(12, 12)", "(13, 12)", "(14, 12)" },
+            playerRotations = { { x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
+
+            fixedTerrain = {
+                {
+                    terrain = "3 Stone Columns",
+                    positions = { "(11.5, 2)", "(11.5, 21)", "(6.5, 5)", "(16.5, 5)", "(6.5, 12)", "(16.5, 12)" },
+                    rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
+                },
+                {
+                    terrain = "Stone Stair",
+                    positions = { "(9.5, 8.5)", "(13.5, 8.5)" },
+                    rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
+                },
+            },
+            specialTerrain = {
+                {
+                    terrain = "Grand Master",
+                    terrainTile = "Grand Master",
+                    positions = { "(11.5, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Nightmare Whale",
+                    terrainTile = "Ethereal Dreamer",
+                    positions = { "(2.5, 2.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+            },
+            levels = {
+                {
+                    name = "Twilight Order",
+                    level = 4,
+                    showdown = {
+                        basic = 13,
+                        movement = 6,
+                        toughness = 0,
+                        life = 1000,
+                        starting = {
+                            special = { "Order Knight", "Order Guard", "Order Archivist", "Order Protector", "Rank and File", "Incapacitated" },
+                            misc = { "Indomitable" },
+                        },
+                    },
+                },
+            },
+        },
+        {
+            name = "Traveler",
+            nemesis = true,
+            size = { x = 1, y = 1 },
+            rules = { "Cinder Festival Rules", 39 },
+            resourcesDeck = false,
+            position = "(12, 8)",
+            playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            playerRotations = { { x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
+            
+            specialTerrain = {
+                {
+                    terrain = "Cyclone of Existence",
+                    terrainTile = "Cyclone of Existence",
+                    positions = { "(12, 8)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+            },
+            levels = {
+                {
+                    name = "Twilight Order",
+                    level = 4,
+                    showdown = {
+                        basic = 10,
+                        movement = 10,
+                        toughness = 26,
+                        evasion = 2,
+                        starting = {
+                            special = { "Phoenix Feathers", "Feathered Cloak", "Way of the Phoenix", "Power Struggle" },
+                            misc = { "Indomitable" },
+                        },
+                    },
+                },
+                {
+                    name = "Twilight Order",
+                    level = 5,
+                    showdown = {
+                        basic = 15,
+                        movement = 10,
+                        toughness = 26,
+                        evasion = 2,
+                        accuracy = 1,
+                        starting = {
+                            special = { "Phoenix Feathers", "Feathered Cloak", "Way of the Phoenix", "Power Struggle" },
+                            misc = { "Indomitable" },
+                        },
+                    },
+                },
+                {
+                    name = "Twilight Order",
+                    level = 6,
+                    showdown = {
+                        basic = 15,
+                        movement = 10,
+                        toughness = 26,
+                        evasion = 3,
+                        accuracy = 2,
+                        starting = {
+                            special = { "Phoenix Feathers", "Feathered Cloak", "Way of the Phoenix", "Power Struggle" },
+                            misc = { "Indomitable" },
+                        },
+                        removeHitLocations = { "Paradox!", "Paradox!", "Paradox!" },
+                    },
+                },
+            },
+        },
+        {
+            name = "Mounted King's Man",
+            nemesis = true,
+            size = { x = 2, y = 2 },
+            rules = { "Cinder Festival Rules", 15 },
+            resourcesDeck = false,
+            basicAiDeck = "King's Man (KC) Basic AI",
+            advancedAiDeck = "King's Man (KC) Advanced AI",
+            legendaryAiDeck = "Familiar Face",
+            hitLocationsDeck = "King's Man (KC) Hit Locations",
+            position = "(11.5, 8.5)",
+            playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            fixedTerrain = {
+                {
+                    terrain = "3 Stone Columns",
+                    positions = { "(10, 6.5)", "(11.5, 5)", "(13, 6.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+            }
+            specialTerrain = {
+                {
+                    terrain = "Cursed Gregalope",
+                    terrainTile = "Cursed Gregalope",
+                    positions = { "(11.5, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+            },
+            randomTerrain = 2,
+            levels = {
+                {
+                    name = "Level 3",
+                    level = 3,
+                    showdown = {
+                        survivorStatus = { "Battle Tempo", "Battle Tempo", "Battle Tempo", "Battle Tempo" },
+                        starting = {
+                            special = { "Weak Spot", "King's Combat", "King's Aura", "Out-Fighting", "Mounted", "Screaming Antelope Advanced AI", "Screaming Antelope Hit Locations", "Cursed Gregalope Hit Locations", "Cursed Steed", "Accursed Rhythm", "Stolen Lead", "Gobbled Up" },
+                            misc = { "Indomitable" },
+                        },
+                        life = 13,
+                        basic = 12,
+                        advanced = 6,
+                        legendary = 1,
+                        miscHitLocations = { "Battle Pressure", "Battle Pressure", "Battle Pressure" },
+                        topHitLocationCards = { "Battle Pressure", "Battle Pressure", "Battle Pressure" },
+                        movement = 6,
+                        toughness = 18,
+                        speed = 2,
+                        damage = 2,
+                        accuracy = 2,
+                    },
+                },
+            },
+        },
+
+        -- wandering watcher lost knowledge isn't finished
+        {
+            name = "Wandering Watcher",
+            nemesis = true,
+            size = { x = 2, y = 2 },
+            rules = { "Cinder Festival Rules", 18 },
+            resourcesDeck = false,
+            advancedAiDeck = false,
+            legendaryAiDeck = false,
+            position = "(11.5, 2.5)",
+            playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
+            fixedTerrain = {
+                {
+                    terrain = "3 Stone Columns",
+                    positions = { "(4, 6.5)", "(4, 14.5)", "(9, 10.5)", "(14, 4.5)", "(19, 6.5)", "(19, 14.5)" },
+                    rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
+                },
+                {
+                    terrain = "2 Acanthus Plants",
+                    positions = { "(3, 13)", "(3, 12)", "(4, 12)", "(19, 16)", "(20, 15)", "(20, 14)", "(20, 1)", "(19, 2)" },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Toppled Pillar",
+                    positions = { "(7.5, 5)", "(15.5, 11)", },
+                    rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
+                },
+            }
+            specialTerrain = {
+                { terrain = "Stairwell" },
+                { terrain = "Smoldering Shelf" },
+                {
+                    terrain = "Twilight Knight",
+                    terrainTile = "Twilight Knight",
+                    positions = { "(14.5, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "Twilight Knight",
+                    terrainTile = "Twilight Knight",
+                    positions = { "(14.5, 8.5)" },
+                    rotations = { { x = 0, y = 180, z = 0 } },
+                },
+                {
+                    terrain = "10 Bookshelves",
+                    terrainTile = "Bookshelf / Smoldering Shelf",
+                    positions = { 
+                        "(1.5, 2)", "(1.5, 4)", "(1.5, 6)", "(1.5, 8)", "(1.5, 10)",
+                        "(5.5, 2)", "(5.5, 4)", "(5.5, 6)", "(5.5, 8)", "(5.5, 10)",
+                        "(10.5, 1)", "(10.5, 4)", "(10.5, 7)", "(10.5, 10)", "(10.5, 13)",
+                        "(12.5, 1)", "(12.5, 4)", "(12.5, 7)", "(12.5, 10)", "(12.5, 13)",
+                        "(17.5, 2)", "(17.5, 4)", "(17.5, 6)", "(17.5, 8)", "(17.5, 10)",
+                        "(21.5, 2)", "(21.5, 4)", "(21.5, 6)", "(21.5, 8)", "(21.5, 10)",
+                    },
+                    rotations = { 
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
+                    },
+                },
+            },
+            levels = {
+                {
+                    name = "Wandering Watcher",
+                    level = 4,
+                    showdown = {
+                        starting = {
+                            special = { "Audience", "Lantern Vortex", "Vapor of Nothingness", "Unyielding", "Insatiable", "Lost Knowledge", "Twilight Knight Ally" },
+                            misc = { "Indomitable" },
+                        },
+                        basic = 10,
+                        legendary = 4,
+                        life = 15,
+                        movement = 0,
+                        toughness = 27,
+                        evasion = 2,
+                        accuracy = 2,
+                    },
+                },
+            },
+        },
+
+    },
+}
+
