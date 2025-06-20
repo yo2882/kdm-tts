@@ -1,14 +1,6 @@
 return {
     name = "Cinder Festival",
 
-    archiveOverrides = {
-        newArchive = "Community Edition Archive",
-        oldArchive = "Core Archive",
-        entries = {
-            { "Core Rules", "Rulebook" },
-        },
-    },
-
     components = {
         ["Terrain"]                 = "Cinder Festival Terrain",
         ["Terrain Tiles"]           = "Cinder Festival Terrain Tiles",
@@ -96,7 +88,6 @@ return {
         ["Regal Cape"]                  = { head = 0, arms = 0, body = 3, waist = 0, legs = 0 },
         ["Gambler's Mask"]              = { head = 2, arms = 0, body = 0, waist = 0, legs = 0 },
         ["Ancient Hero's Cowl"]         = { head = 0, arms = 0, body = 3, waist = 0, legs = 0 },
-        ["Refined Lantern Cuirass"]     = { head = 0, arms = 0, body = 6, waist = 0, legs = 0 },
     },
 
     weaponStats = {
@@ -341,12 +332,6 @@ return {
             { "Cinder Festival Settlement Locations", "Settlement Locations" },
 
             { "Cinder Festival Rare Gear", "Gear" },
-
-            { "Ethereal Dreamer", "Monster Figurine" },
-
-            { "Order Member", "Monster Figurine" },
-
-            { "Traveler", "Monster Figurine" },
 
             { "Mangled Throne", "Monster Figurine" },
             { "Mangled Throne Info", "AI" },
