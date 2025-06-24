@@ -1,5 +1,7 @@
 return {
     name = "Cinder Festival",
+    
+    guidNames = { ["8d16e3"] = "Cinder Festival Archive" },
 
     components = {
         ["Terrain"]                 = "Cinder Festival Terrain",
@@ -40,8 +42,11 @@ return {
         ["6 Rocky Paths"]         = { terrainTile = "Rocky Path", count = 6 },
         ["2 Briar Patch"]         = { terrainTile = "Briar Patch", count = 2 },
         ["Downed Tree"]           = { terrainTile = "Downed Tree", count = 1 },
-        ["2 Time Puddles"]        = { terrainTile = "Time Puddles", count = 2 },
+        ["2 Time Puddles"]        = { terrainTile = "Time Puddle", count = 2 },
         ["Stone Stair"]           = { terrainTile = "Stone Stair", count = 1 },
+
+        ["Half-Eaten Monster"]      = { terrainTile = "Half-Eaten Monster", count = 1 },
+        ["Mad Spectre"]             = { terrainTile = "Mad Spectre", count = 1 },
     },
 
     terrainTileSizes = {
@@ -69,12 +74,15 @@ return {
         ["Charnal Crow"]                        = { x = 2, y = 2 },
         ["Dream Wake"]                          = { x = 2, y = 2 },
         ["Grand Master"]                        = { x = 2, y = 2 },
+        ["Half-Eaten Monster"]                  = { x = 2, y = 2 },
 
         ["Exhausted Lantern Horde"]             = { x = 3, y = 3 },
         ["Cyclone of Existence"]                = { x = 3, y = 3 },
 
         ["Stone Stair"]                         = { x = 2, y = 4 },
         ["Downed Tree"]                         = { x = 2, y = 4 },
+
+        ["Ethereal Dreamer"]                    = { x = 4, y = 4 },
     },
 
     armorStats = {
@@ -301,7 +309,7 @@ return {
                     keywords = { "Time" , "to" , "Die" },
                     state = 40,
                 },
-                ["Glossary"] = {
+                ["Glossary (CF)"] = {
                     keywords = { "Glossary" },
                     state = 41,
                 },
@@ -309,11 +317,11 @@ return {
         },
     },
 
-    guidNames = { ["8d16e3"] = "Cinder Festival Archive" },
-
     archiveEntries = {
         archive = "Cinder Festival Archive",
         entries = {
+            { "Cinder Festival Rules", "Rulebook" },
+
             { "Cinder Festival Abilities", "Abilities" },
             { "Take Cover", "Fighting Arts" },
             { "Cinder Festival Secret Fighting Arts", "Secret Fighting Arts" },
@@ -321,8 +329,51 @@ return {
             { "Cinder Festival Strange Resources", "Strange Resources" },
 
             { "Cinder Festival Terrain", "Terrain" },
-            { "Cinder Festival Special Terrain", "Terrain" },
             { "Cinder Festival Terrain Tiles", "Terrain Tiles" },
+
+            { "Watcher Corpse", "Terrain" },
+            { "Exhausted Lantern Horde", "Terrain" },
+            { "Charnal Crow", "Terrain" },
+            { "4 Vermin Swarm", "Terrain" },
+            { "Grand Master", "Terrain" },
+            { "Dreamer's Tail", "Terrain" },
+            { "Dream Board", "Terrain" },
+            { "Dream Wake", "Terrain" },
+            { "2 Hooded Knights", "Terrain" },
+            { "Nightmare Whale", "Terrain" },
+            { "10 Watcher Polyps", "Terrain" },
+            { "King", "Terrain" },
+            { "Smoldering Shelf", "Terrain" },
+            { "Cyclone of Existence", "Terrain" },
+            { "Twilight Knight", "Terrain" },
+            { "4 King's Men", "Terrain" },
+            { "Scribe's Desk", "Terrain" },
+            { "Stairwell", "Terrain" },
+            { "Cursed Gregalope", "Terrain" },
+            { "10 Bookshelves", "Terrain" },
+            { "Half-Eaten Monster", "Terrain" },
+            { "Mad Spectre", "Terrain" },
+
+            { "Ethereal Dreamer", "Terrain Tiles" },
+            { "Hooded Knight", "Terrain Tiles" },
+            { "Half-Eaten Monster", "Terrain Tiles" },
+            { "Charnal Crow", "Terrain Tiles" },
+            { "Twilight Knight", "Terrain Tiles" },
+            { "Scribe's Desk", "Terrain Tiles" },
+            { "Cursed Gregalope", "Terrain Tiles" },
+            { "King's Man", "Terrain Tiles" },
+            { "Bookshelf / Smoldering Shelf", "Terrain Tiles" },
+            { "Exhausted Lantern Horde", "Terrain Tiles" },
+            { "Watcher Corpse", "Terrain Tiles" },
+            { "Stairwell", "Terrain Tiles" },
+            { "King", "Terrain Tiles" },
+            { "Mad Spectre", "Terrain Tiles" },
+            { "Cyclone of Existence", "Terrain Tiles" },
+            { "Dream Wake", "Terrain Tiles" },
+            { "Vermin Swarm", "Terrain Tiles" },
+            { "Watcher Polyp", "Terrain Tiles" },
+            { "Grand Master", "Terrain Tiles" },
+
             { "Monster Patte", "Bookmarks"},
 
             { "Cinder Festival Settlement Events", "Settlement Events" },
@@ -365,7 +416,7 @@ return {
             { "Ethereal Dreamer Info", "AI" },
             { "Ethereal Dreamer Basic Action", "AI" },
             { "Ethereal Dreamer Basic AI", "AI" },
-            { "Ethereal Dreamer Legendary AI", "AI" }, -- watcher polyps deck
+            { "Watcher Polyp Hit Locations", "Terrain Tiles" },
             { "Ethereal Dreamer Special AI", "AI" },
             { "Ethereal Dreamer Hit Locations", "Hit Locations" },
 
@@ -383,7 +434,7 @@ return {
             { "Twilight Order Info", "AI" },
             { "Twilight Order Basic Action", "AI" },
             { "Twilight Order Basic AI", "AI" },
-            { "Twilight Order Legendary AI", "AI" }, -- challenge deck
+            { "Challenge Deck", "Terrain Tiles" },
             { "Twilight Order Special AI", "AI" },
             { "Twilight Order Hit Locations", "Hit Locations" },
 
@@ -398,13 +449,14 @@ return {
             { "Mounted King's Man Info", "AI" },
             { "Mounted King's Man Basic Action", "AI" },
             { "Mounted King's Man Special AI", "AI" },
-            { "Cursed Gregalope Hit Locations", "Hit Locations" },
+            { "Cursed Gregalope Decks", "Terrain Tiles" },
 
             { "Wandering Watcher", "Monster Figurine" },
             { "Wandering Watcher Info", "AI" },
             { "Wandering Watcher Basic Action", "AI" },
-            { "Wandering Watcher Legendary Action", "AI" },
+            { "Wandering Watcher Legendary AI", "AI" },
             { "Wandering Watcher Special AI", "AI" },
+            { "Lost Knowledge Deck", "Terrain Tiles" },
 
         },
     },
@@ -425,11 +477,6 @@ return {
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
                 {
-                    terrain = "Charnal Crow",
-                    positions = { "(1.5, 1.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
-                },
-                {
                     terrain = "Downed Tree",
                     positions = { "(3.5, 4.5)" },
                     rotations = { { x = 0, y = 90, z = 0 } },
@@ -446,18 +493,19 @@ return {
                 },
             },
             specialTerrain = {
-                {
-                    terrain = "4 Vermin Swarm",
-                    terrainTile = "Vermin Swarm",
-                    positions = { "(2, 4)", "(1, 14)", "(7, 1)", "(20, 2)", "(6, 11)", "(11, 11)", "(13, 6)", "(19, 14)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, },
-                
-                },
+                { terrain = "4 Vermin Swarm", terrainTile = "Vermin Swarm", position = "(2, 4)", rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(1, 14)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(7, 1)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(20, 2)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(6, 11)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(11, 11)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(13, 6)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(19, 14)" , rotation = { x = 0, y = 180, z = 0 } },
                 {
                     terrain = "Charnal Crow",
                     terrainTile = "Charnal Crow",
-                    positions = { "(1.5, 1.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(1.5, 1.5)" ,
+                    rotation = { x = 0, y = 180, z = 0 },
                  },
             },
             miscObject = { name = "Lonely Fruit", type = "Terrain Tiles" },
@@ -505,7 +553,6 @@ return {
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
             },
-            randomTerrain = 2,
             levels = {
                 {
                     name = "Golden Eyed King Reborn",
@@ -547,21 +594,19 @@ return {
                 {
                     terrain = "Scribe's Desk",
                     terrainTile = "Scribe's Desk",
-                    positions = { "(11.5, 1.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 1.5)" ,
+                    rotation = { x = 0, y = 180, z = 0 } ,
                 },
                 {
                     terrain = "King",
                     terrainTile = "King",
-                    positions = { "(11.5, 5.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 5.5)" ,
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
-                {
-                    terrain = "4 King's Men",
-                    terrainTile = "King's Man",
-                    positions = { "(1.5, 8.5)", "(21.5, 8.5)", "(4.5, 13.5)", "(18.5, 13.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
-                },
+                { terrain = "4 King's Men", terrainTile = "King's Man", position = "(1.5, 8.5)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "King's Man", position = "(21.5, 8.5)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "King's Man", position = "(4.5, 13.5)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "King's Man", position = "(18.5, 13.5)" , rotation = { x = 0, y = 180, z = 0 } },
             },
             levels = {
                 {
@@ -570,10 +615,10 @@ return {
                     showdown = {
                         survivorStatus = { "Polarized Aura", "Polarized Aura", "Polarized Aura", "Polarized Aura" },
                         starting = {
-                            special = { "Red Lens", "Green Lens", "Blue Lens", "Ghost Step", "Impossible Eyes", "Regal Order", "Dry Quill", "Untold Secrets" },
+                            special = { "Red Lens", "Green Lens", "Blue Lens", "Ghost Step", "Regal Order", "Dry Quill", "Untold Secrets" },
                             misc = { "Indomitable" },
                         },
-                        removeHitLocations = { "Glided Codpiece" },
+                        removeHitLocations = { "Gilded Codpiece" },
                         basic = 10,
                         advanced = 2,
                         movement = 6,
@@ -590,6 +635,8 @@ return {
             nemesis = true,
             size = { x = 4, y = 4 },
             rules = { "Cinder Festival Rules", 25 },
+            advancedAiDeck = false,
+            legendaryAiDeck = false,
             resourcesDeck = false,
             position = "(11.5, 8.5)",
             playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
@@ -601,26 +648,27 @@ return {
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
             },
+            miscObject = { name = "Watcher Polyp Hit Locations", type = "Terrain Tiles" },
             specialTerrain = {
                 { terrain = "Dreamer's Tail" },
                 { terrain = "Dream Board" },
                 {
                     terrain = "Dream Wake",
                     terrainTile = "Dream Wake",
-                    positions = { "(11.5, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 8.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
+                { terrain = "10 Watcher Polyps", terrainTile = "Watcher Polyp", position = "(9, 6)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Watcher Polyp", position = "(14, 6)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Watcher Polyp", position = "(9, 11)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Watcher Polyp", position = "(14, 11)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrain = "2 Hooded Knights", terrainTile = "Hooded Knight", position = "(6, 1)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Hooded Knight", position = "(17, 1)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Hooded Knight", position = "(6, 16)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Hooded Knight", position = "(17, 16)" , rotation = { x = 0, y = 180, z = 0 } },
                 {
-                    terrain = "10 Watcher Polyps",
-                    terrainTile = "Dream Wake",
-                    positions = { "(9, 6)", "(14, 6)", "(9, 11)", "(14, 11)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
-                },
-                {
-                    terrain = "2 Hooded Knights",
-                    terrainTile = "Hooded Knight",
-                    positions = { "(6, 1)", "(17, 1)", "(6, 22)", "(17, 22)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 11.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
             },
             levels = {
@@ -662,14 +710,14 @@ return {
                 {
                     terrain = "Exhausted Lantern Horde",
                     terrainTile = "Exhausted Lantern Horde",
-                    positions = { "(2, 8)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(2, 8)" ,
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
                 {
                     terrain = "Watcher Corpse",
                     terrainTile = "Watcher Corpse",
-                    positions = { "(18.5, 3.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(18.5, 3.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
             },
             levels = {
@@ -693,8 +741,10 @@ return {
         {
             name = "Twilight Order",
             nemesis = true,
-            size = { x = 2, y = 2 },
+            size = { x = 1, y = 1 },
             rules = { "Cinder Festival Rules", 24 },
+            advancedAiDeck = false,
+            legendaryAiDeck = false,
             resourcesDeck = false,
             position = "(11.5, 5.5)",
             playerPositions = { "(11, 12)", "(12, 12)", "(13, 12)", "(14, 12)" },
@@ -703,7 +753,7 @@ return {
             fixedTerrain = {
                 {
                     terrain = "3 Stone Columns",
-                    positions = { "(11.5, 2)", "(11.5, 21)", "(6.5, 5)", "(16.5, 5)", "(6.5, 12)", "(16.5, 12)" },
+                    positions = { "(11.5, 2)", "(11.5, 15)", "(6.5, 5)", "(16.5, 5)", "(6.5, 12)", "(16.5, 12)" },
                     rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
                 },
                 {
@@ -712,18 +762,19 @@ return {
                     rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
                 },
             },
+            miscObject = { name = "Challenge Deck", type = "Terrain Tiles" },
             specialTerrain = {
                 {
                     terrain = "Grand Master",
                     terrainTile = "Grand Master",
-                    positions = { "(11.5, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 8.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
                 {
                     terrain = "Nightmare Whale",
                     terrainTile = "Ethereal Dreamer",
-                    positions = { "(2.5, 2.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(2.5, 2.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
             },
             levels = {
@@ -748,22 +799,23 @@ return {
             nemesis = true,
             size = { x = 1, y = 1 },
             rules = { "Cinder Festival Rules", 39 },
+            advancedAiDeck = false,
+            legendaryAiDeck = false,
             resourcesDeck = false,
             position = "(12, 8)",
             playerPositions = { "(10, 16)", "(11, 16)", "(12, 16)", "(13, 16)" },
             playerRotations = { { x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
-            
             specialTerrain = {
                 {
                     terrain = "Cyclone of Existence",
                     terrainTile = "Cyclone of Existence",
-                    positions = { "(12, 8)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(12, 8)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
             },
             levels = {
                 {
-                    name = "Twilight Order",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         basic = 10,
@@ -777,7 +829,7 @@ return {
                     },
                 },
                 {
-                    name = "Twilight Order",
+                    name = "Level 5",
                     level = 5,
                     showdown = {
                         basic = 15,
@@ -792,7 +844,7 @@ return {
                     },
                 },
                 {
-                    name = "Twilight Order",
+                    name = "Level 6",
                     level = 6,
                     showdown = {
                         basic = 15,
@@ -809,6 +861,8 @@ return {
                 },
             },
         },
+
+-- Screaming Antelope isn't finished , "Screaming Antelope Advanced AI", "Screaming Antelope Hit Locations", "Cursed Gregalope Hit Locations"
         {
             name = "Mounted King's Man",
             nemesis = true,
@@ -828,12 +882,17 @@ return {
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
             },
+            miscObject = { name = "Cursed Gregalope Decks", type = "Terrain Tiles" },
             specialTerrain = {
                 {
                     terrain = "Cursed Gregalope",
                     terrainTile = "Cursed Gregalope",
-                    positions = { "(11.5, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(11.5, 8.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
+                },
+                {
+                    position = "(11.5, 11.5)",
+                    rotation = { x = 0, y = 180, z = 0 },
                 },
             },
             randomTerrain = 2,
@@ -844,7 +903,7 @@ return {
                     showdown = {
                         survivorStatus = { "Battle Tempo", "Battle Tempo", "Battle Tempo", "Battle Tempo" },
                         starting = {
-                            special = { "Weak Spot", "King's Combat", "King's Aura", "Out-Fighting", "Mounted", "Screaming Antelope Advanced AI", "Screaming Antelope Hit Locations", "Cursed Gregalope Hit Locations", "Cursed Steed", "Accursed Rhythm", "Stolen Lead", "Gobbled Up" },
+                            special = { "Weak Spot", "King's Combat", "King's Aura", "Out-Fighting", "Mounted", "Cursed Steed", "Accursed Rhythm", "Stolen Lead", "Gobbled Up" },
                             misc = { "Indomitable" },
                         },
                         life = 13,
@@ -863,7 +922,7 @@ return {
             },
         },
 
-        -- wandering watcher lost knowledge isn't finished
+-- Wandering Watcher lost knowledge isn't finished
         {
             name = "Wandering Watcher",
             nemesis = true,
@@ -871,7 +930,6 @@ return {
             rules = { "Cinder Festival Rules", 18 },
             resourcesDeck = false,
             advancedAiDeck = false,
-            legendaryAiDeck = false,
             
             basicAiDeck = "Watcher Basic AI",
             hitLocationsDeck = "Watcher Hit Locations",
@@ -882,11 +940,11 @@ return {
                 {
                     terrain = "3 Stone Columns",
                     positions = { "(4, 6.5)", "(4, 14.5)", "(9, 10.5)", "(14, 4.5)", "(19, 6.5)", "(19, 14.5)" },
-                    rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
+                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
                 {
                     terrain = "2 Acanthus Plants",
-                    positions = { "(3, 13)", "(3, 12)", "(4, 12)", "(19, 16)", "(20, 15)", "(20, 14)", "(20, 1)", "(19, 2)" },
+                    positions = { "(3, 14)", "(3, 13)", "(4, 13)", "(19, 16)", "(20, 15)", "(20, 14)", "(20, 1)", "(19, 2)" },
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
                 {
@@ -895,41 +953,46 @@ return {
                     rotations = { { x = 0, y = 270, z = 0 }, { x = 0, y = 270, z = 0 } },
                 },
             },
+            miscObject = { name = "Lost Knowledge Deck", type = "Terrain Tiles" },
             specialTerrain = {
                 { terrain = "Stairwell" },
                 { terrain = "Smoldering Shelf" },
                 {
                     terrain = "Twilight Knight",
                     terrainTile = "Twilight Knight",
-                    positions = { "(14.5, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
+                    position = "(14.5, 8.5)",
+                    rotations = { x = 0, y = 180, z = 0 },
                 },
-                {
-                    terrain = "Twilight Knight",
-                    terrainTile = "Twilight Knight",
-                    positions = { "(14.5, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 } },
-                },
-                {
-                    terrain = "10 Bookshelves",
-                    terrainTile = "Bookshelf / Smoldering Shelf",
-                    positions = { 
-                        "(1.5, 2)", "(1.5, 4)", "(1.5, 6)", "(1.5, 8)", "(1.5, 10)",
-                        "(5.5, 2)", "(5.5, 4)", "(5.5, 6)", "(5.5, 8)", "(5.5, 10)",
-                        "(10.5, 1)", "(10.5, 4)", "(10.5, 7)", "(10.5, 10)", "(10.5, 13)",
-                        "(12.5, 1)", "(12.5, 4)", "(12.5, 7)", "(12.5, 10)", "(12.5, 13)",
-                        "(17.5, 2)", "(17.5, 4)", "(17.5, 6)", "(17.5, 8)", "(17.5, 10)",
-                        "(21.5, 2)", "(21.5, 4)", "(21.5, 6)", "(21.5, 8)", "(21.5, 10)",
-                    },
-                    rotations = { 
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                        { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },
-                    },
-                },
+                { terrain = "10 Bookshelves", terrainTile = "Bookshelf / Smoldering Shelf", position = "(1.5, 2)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(1.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(1.5, 6)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(1.5, 8)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(1.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(5.5, 2)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(5.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(5.5, 6)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(5.5, 8)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(5.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(10.5, 1)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(10.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(10.5, 7)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(10.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(10.5, 13)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(12.5, 1)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(12.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(12.5, 7)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(12.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(12.5, 13)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(17.5, 2)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(17.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(17.5, 6)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(17.5, 8)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(17.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(21.5, 2)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(21.5, 4)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(21.5, 6)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(21.5, 8)", rotation = { x = 0, y = 180, z = 0 } ,},
+                { terrainTile = "Bookshelf / Smoldering Shelf", position = "(21.5, 10)", rotation = { x = 0, y = 180, z = 0 } ,},
             },
             levels = {
                 {
