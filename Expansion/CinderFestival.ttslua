@@ -18,6 +18,10 @@ return {
         ["Rare Gear"]               = "Cinder Festival Rare Gear",
     },
 
+    removeTimelineEvent = { year = 7, name = "Phoenix Feather" },
+
+    replaceNemesis = { nemesis = "Gold Smoke Knight", replacement = "Gold Smoke Knight (CF)" },
+
     settlementEvents = {
         "Vivid Dreams",
         "The Unblemished Man",
@@ -83,6 +87,10 @@ return {
         ["Downed Tree"]                         = { x = 2, y = 4 },
 
         ["Ethereal Dreamer"]                    = { x = 4, y = 4 },
+    },
+
+        settlementLocationGear = {
+        ["Smoking Furnace"]  = "Smoking Furnace Gear",
     },
 
     armorStats = {
@@ -383,6 +391,7 @@ return {
             { "Cinder Festival Settlement Locations", "Settlement Locations" },
 
             { "Cinder Festival Rare Gear", "Gear" },
+            { "Smoking Furnace Gear", "Gear" },
 
             { "Mangled Throne", "Monster Figurine" },
             { "Mangled Throne Info", "AI" },
@@ -676,9 +685,9 @@ return {
                     name = "Ethereal Dreamer",
                     level = 4,
                     showdown = {
-                        survivorStatus = { "Polarized Aura", "Polarized Aura", "Polarized Aura", "Polarized Aura" },
+                        survivorStatus = { "Wide Awake", "Wide Awake", "Wide Awake", "Wide Awake" },
                         starting = {
-                            special = { "Surfaced", "Invulnerable", "Phantasmagoria", "Whalesong", "Wide Awake" },
+                            special = { "Surfaced", "Invulnerable", "Phantasmagoria", "Whalesong" },
                         },
                         life = 10,
                         basic = 12,
@@ -823,7 +832,8 @@ return {
                         toughness = 26,
                         evasion = 2,
                         starting = {
-                            special = { "Phoenix Feathers", "Feathered Cloak", "Way of the Phoenix", "Power Struggle" },
+                            survivorStatus = { "Power Struggle", "Power Struggle", "Power Struggle", "Power Struggle" },
+                            special = { "Phoenix Feathers", "Feathered Cloak", "Way of the Phoenix" },
                             misc = { "Indomitable" },
                         },
                     },
