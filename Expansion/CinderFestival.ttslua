@@ -520,7 +520,7 @@ return {
             miscObject = { name = "Lonely Fruit", type = "Terrain Tiles" },
             levels = {
                 {
-                    name = "Mangled Throne",
+                    name = "Level 5",
                     level = 5,
                     showdown = {
                         starting = {
@@ -564,7 +564,7 @@ return {
             },
             levels = {
                 {
-                    name = "Golden Eyed King Reborn",
+                    name = "Level 5",
                     level = 5,
                     showdown = {
                         rules = { "Cinder Festival Rules", 35 },
@@ -619,7 +619,7 @@ return {
             },
             levels = {
                 {
-                    name = "King's Court",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         survivorStatus = { "Polarized Aura", "Polarized Aura", "Polarized Aura", "Polarized Aura" },
@@ -682,7 +682,7 @@ return {
             },
             levels = {
                 {
-                    name = "Ethereal Dreamer",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         survivorStatus = { "Wide Awake", "Wide Awake", "Wide Awake", "Wide Awake" },
@@ -706,14 +706,6 @@ return {
             position = "(11.5, 8.5)",
             playerPositions = { "(8, 5)", "(15, 5)", "(8, 12)", "(15, 12)" },
             playerRotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
-
-            fixedTerrain = {
-                {
-                    terrain = "3 Stone Columns",
-                    positions = { "(8, 3.5)", "(15, 3.5)", "(8, 13.5)", "(15, 13.5)", "(5, 8.5)", "(18, 8.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
-                },
-            },
             
             specialTerrain = {
                 {
@@ -731,8 +723,8 @@ return {
             },
             levels = {
                 {
-                    name = "Gold Smoke Knight (CF)",
-                    level = 1,
+                    name = "Level 4",
+                    level = 4,
                     showdown = {
                         basic = 9,
                         advanced = 7,
@@ -788,7 +780,7 @@ return {
             },
             levels = {
                 {
-                    name = "Twilight Order",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         basic = 13,
@@ -1006,7 +998,7 @@ return {
             },
             levels = {
                 {
-                    name = "Wandering Watcher",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         starting = {

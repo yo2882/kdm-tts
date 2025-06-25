@@ -69,7 +69,7 @@ return {
                 { year = 23, type = "ShowdownEvent", monster = "Butcher", level = "Level 3" },
                 { year = 25, type = "ShowdownEvent", monster = "Watcher" },
                 { year = 28, type = "ShowdownEvent", monster = "King's Man", level = "Level 3" },
-                { year = 30, type = "ShowdownEvent", monster = "Gold Smoke Knight" },
+                { year = 30, type = "ShowdownEvent", monster = "Gold Smoke Knight", level = "Level 4" },
             },
             survivalActions = {
                 { name = "Dodge", checked = true },
@@ -955,7 +955,7 @@ return {
             randomTerrain = 3,
             levels = {
                 {
-                    name = "Level 1",
+                    name = "Level 4",
                     level = 4,
                     showdown = {
                         basic = 9,
