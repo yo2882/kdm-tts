@@ -79,6 +79,7 @@ return {
         ["Dream Wake"]                          = { x = 2, y = 2 },
         ["Grand Master"]                        = { x = 2, y = 2 },
         ["Half-Eaten Monster"]                  = { x = 2, y = 2 },
+        ["Forsaken Fog"]                        = { x = 2, y = 2 },
 
         ["Exhausted Lantern Horde"]             = { x = 3, y = 3 },
         ["Cyclone of Existence"]                = { x = 3, y = 3 },
@@ -361,6 +362,7 @@ return {
             { "10 Bookshelves", "Terrain" },
             { "Half-Eaten Monster", "Terrain" },
             { "Mad Spectre", "Terrain" },
+            { "Forsaken Fog", "Terrain" },
 
             { "Ethereal Dreamer", "Terrain Tiles" },
             { "Hooded Knight", "Terrain Tiles" },
@@ -381,6 +383,7 @@ return {
             { "Vermin Swarm", "Terrain Tiles" },
             { "Watcher Polyp", "Terrain Tiles" },
             { "Grand Master", "Terrain Tiles" },
+            { "Briar Patch", "Terrain Tiles" }, -- Briar Patch to be setup under Mangled Throne as special terrain (spawn before figurine)
 
             { "Monster Patte", "Bookmarks"},
 
@@ -406,6 +409,7 @@ return {
             { "Golden Eyed King Reborn Info", "AI" },
             { "Golden Eyed King Reborn Basic Action", "AI" },
             { "Golden Eyed King Reborn Special AI", "AI" },
+            { "Golden Eyed King Reborn Hit Locations", "Hit Locations" },
 
             { "King's Court", "Monster Figurine" },
             { "King's Court Info", "AI" },
@@ -417,7 +421,7 @@ return {
             { "Ethereal Dreamer Info", "AI" },
             { "Ethereal Dreamer Basic Action", "AI" },
             { "Ethereal Dreamer Basic AI", "AI" },
-            { "Watcher Polyp Hit Locations", "Terrain Tiles" },
+            { "Dream Board / Watcher Polyp Hit Locations", "Terrain Tiles" },
             { "Ethereal Dreamer Special AI", "AI" },
             { "Ethereal Dreamer Hit Locations", "Hit Locations" },
 
@@ -464,15 +468,10 @@ return {
             size = { x = 3, y = 3 },
             rules = { "Cinder Festival Rules", 36 },
             resourcesDeck = false,
-            position = "(11, 8)",
+            position = "(12, 8)",
             playerPositions = { "(9, 13)", "(10, 14)", "(11, 14)", "(12, 14)" },
             playerRotations = {{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 },{ x = 0, y = 0, z = 0 } },
             fixedTerrain = {
-                {
-                    terrain = "2 Tall Grass",
-                    positions = { "(4.5, 1.5)", "(17.5, 1.5)", "(4.5, 14.5)", "(17.5, 14.5)" },
-                    rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
-                },
                 {
                     terrain = "Downed Tree",
                     positions = { "(3.5, 4.5)" },
@@ -485,18 +484,20 @@ return {
                 },
                 {
                     terrain = "2 Briar Patch",
-                    positions = { "(4.5, 12.5)", "(9.5, 5.5)", "(13.5, 9.5)", "(17.5, 3.5)" },
-                    rotations = { { x = 0, y = 90, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 }, { x = 0, y = 0, z = 0 } },
+                    positions = { "(4.5, 12.5)", "(9.5, 5.5)", "(17.5, 3.5)" },
+                    rotations = { { x = 0, y = 90, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 270, z = 0 } },
                 },
             },
             specialTerrain = {
+                { terrain = "Forsaken Fog", terrainTile = "Forsaken Fog", position = "(11.5, 8.5)", rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Briar Patch", position = "(13.5, 9.5)" , rotation = { x = 0, y = 0, z = 0 } },
                 { terrain = "4 Vermin Swarm", terrainTile = "Vermin Swarm", position = "(2, 4)", rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(1, 14)" , rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(7, 1)" , rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(20, 2)" , rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(6, 11)" , rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(11, 11)" , rotation = { x = 0, y = 180, z = 0 } },
-                { terrainTile = "Vermin Swarm", position = "(13, 6)" , rotation = { x = 0, y = 180, z = 0 } },
+                { terrainTile = "Vermin Swarm", position = "(14, 6)" , rotation = { x = 0, y = 180, z = 0 } },
                 { terrainTile = "Vermin Swarm", position = "(19, 14)" , rotation = { x = 0, y = 180, z = 0 } },
                 {
                     terrain = "Charnal Crow",
@@ -535,7 +536,6 @@ return {
             basicAiDeck = "Phoenix Basic AI",
             advancedAiDeck = "Phoenix Advanced AI",
             legendaryAiDeck = "Phoenix Legendary AI",
-            hitLocationsDeck = "Phoenix Hit Locations",
             position = "(12, 9)",
             playerPositions = { "(10, 15)", "(11, 16)", "(12, 16)", "(13, 16)" },
             fixedTerrain = {
@@ -569,8 +569,7 @@ return {
                         },
                         customBasic = { "Bored", "Instant Wing Strike", "Peck", "Peck", "Pustule Cannons" },
                         customAdvanced = { "The Difference Between Us", "Gouge & Feast", "Ripple", "Wing Punch" },
-                        miscHitLocations = { "Forever Young", "Ignite", "Fell Swoop", "Grub Forage" },
-                        removeHitLocations = { "Glorious Arm Pit", "Soft Lower Gut" },
+                        removeHitLocations = { "Forever Young", "Ignite", "Fell Swoop", "Grub Forage" },
                         life = 25,
                         movement = 10,
                         toughness = 25,
@@ -653,7 +652,7 @@ return {
                     rotations = { { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 }, { x = 0, y = 180, z = 0 } },
                 },
             },
-            miscObject = { name = "Watcher Polyp Hit Locations", type = "Terrain Tiles" },
+            miscObject = { name = "Dream Board / Watcher Polyp Hit Locations", type = "Terrain Tiles" },
             specialTerrain = {
                 { terrain = "Dreamer's Tail" },
                 { terrain = "Dream Board" },
